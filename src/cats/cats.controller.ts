@@ -10,16 +10,13 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { CreateCatDto, UpdateCatDto, ListAllEntities } from './dto';
+import { CreateCatDto, UpdateCatDto } from './dto';
 import { CatsService } from './cats.services';
 import { ICat } from './interfaces';
 
 @Controller('cats')
 export class CatsController {
-  constructor(
-    private catService: CatsService,
-    private listAllEntities: ListAllEntities,
-  ) {}
+  constructor(private catService: CatsService) {}
 
   @Post()
   async create(@Body() createCatDto: CreateCatDto, @Res() res: Response) {
