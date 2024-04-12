@@ -16,7 +16,7 @@ interface IRoleCreationAttributes {
   description: string;
 }
 
-// TODO add user validation to swagger page
+// TODO add user validation to swagger page (token and etc.)
 @Table({ tableName: 'roles' })
 export class Role extends Model<Role, IRoleCreationAttributes> {
   @ApiProperty({ example: '1', description: 'An unique id of the role' })
@@ -33,10 +33,10 @@ export class Role extends Model<Role, IRoleCreationAttributes> {
   name: string;
 
   @ApiProperty({
-    example: 'Role description',
+    example: 'Default user',
     description: 'There is user role description',
   })
-  @Column({ type: DataType.STRING, unique: true, allowNull: false })
+  @Column({ type: DataType.STRING })
   description: string;
 
   @BelongsToMany(() => User, () => UserRoles)

@@ -31,7 +31,7 @@ export class UsersService {
   }
 
   // TODO should change includes
-  async findAll(): Promise<User[]> {
+  async getAllUsers(): Promise<User[]> {
     return await this.userModel.findAll({ include: { all: true } });
   }
 

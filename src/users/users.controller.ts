@@ -1,29 +1,35 @@
-import { Body, Controller, Get, HttpStatus, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { UsersService } from './users.service';
 import { User } from './users.model';
 import { CreateUserDto } from './dto/create-user.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
-@Controller('users')
-// Swagger
 @ApiTags('users')
+@Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
-  @Post()
-  // Swagger
   @ApiOperation({ summary: 'Create a user' })
   @ApiResponse({ status: HttpStatus.CREATED, type: User })
+  @Post()
   create(@Body() userDto: CreateUserDto) {
     return this.usersService.createUser(userDto);
   }
 
-  @Get()
-  // Swagger
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Find all users' })
   @ApiResponse({ status: HttpStatus.OK, type: [User] })
-  findAll(): Promise<User[]> {
-    return this.usersService.findAll();
+  @Get()
+  getAll(): Promise<User[]> {
+    return this.usersService.getAllUsers();
   }
 }

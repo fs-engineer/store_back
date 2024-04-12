@@ -13,7 +13,6 @@ import { UserRoles } from '../roles/user-roles.model';
 interface IUserCreationAttributes {
   email: string;
   password: string;
-  number: string;
 }
 
 // TODO add user validation to swagger page
@@ -37,12 +36,12 @@ export class User extends Model<User, IUserCreationAttributes> {
   password: string;
 
   @ApiProperty({ example: '063010101', description: 'User phone number' })
-  @Column({ type: DataType.STRING, allowNull: false })
+  @Column({ type: DataType.STRING })
   number: string;
 
   @ApiProperty({ example: '01.01.1970', description: 'User birth date' })
-  @Column({ type: DataType.DATE, allowNull: true })
-  birthDate: number;
+  @Column({ type: DataType.DATE })
+  birthDate: Date;
 
   @BelongsToMany(() => Role, () => UserRoles)
   roles: Role[];
