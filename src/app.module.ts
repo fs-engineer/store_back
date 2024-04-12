@@ -5,6 +5,8 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import * as process from 'node:process';
 import { User } from './users/users.model';
+import { RolesModule } from './roles/roles.module';
+import { Role } from './roles/roles.model';
 
 @Module({
   controllers: [],
@@ -20,10 +22,11 @@ import { User } from './users/users.model';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      models: [User],
+      models: [User, Role],
       autoLoadModels: true,
     }),
     UsersModule,
+    RolesModule,
   ],
 })
 export class AppModule {}
