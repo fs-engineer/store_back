@@ -9,9 +9,10 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { User } from '../users/users.model';
 import { UserRoles } from './user-roles.model';
+import { ROLES } from '../constants';
 
 interface IRoleCreationAttributes {
-  value: string;
+  name: string;
   description: string;
 }
 
@@ -27,7 +28,7 @@ export class Role extends Model<Role, IRoleCreationAttributes> {
   })
   id: number;
 
-  @ApiProperty({ example: 'ADMIN', description: 'Role name' })
+  @ApiProperty({ example: ROLES.user, description: 'Role name' })
   @Column({ type: DataType.STRING, unique: true, allowNull: false })
   name: string;
 
