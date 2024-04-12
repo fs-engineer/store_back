@@ -6,7 +6,7 @@ interface IUserCreationAttributes {
   number: string;
 }
 
-@Table({ tableName: 'users' })
+@Table({ modelName: 'users' })
 export class User extends Model<User, IUserCreationAttributes> {
   @Column({
     unique: true,
