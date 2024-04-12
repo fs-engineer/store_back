@@ -30,10 +30,12 @@ export class UsersService {
     return user;
   }
 
+  // TODO should change includes
   async findAll(): Promise<User[]> {
     return await this.userModel.findAll({ include: { all: true } });
   }
 
+  // TODO should change includes
   async getUserByEmail(email: string) {
     return await this.userModel.findOne({
       where: { email },
