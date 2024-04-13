@@ -18,6 +18,33 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
+  private async generateToken(userDto: User): Promise<{ accessToken: string }> {
+    const payload = {
+      email: userDto.email,
+      id: userDto.id,
+      roles: userDto.roles,
+    };
+    return { accessToken: this.jwtService.sign(payload) };
+  }
+
+  private async validateUser(userDto: CreateUserDto) {
+    const user = await this.usersService.getUserByEmail(userDto.email);
+    if (!user) {
+      throw new UnauthorizedException({ message: 'Wrong email or password' });
+    }
+
+    const passwordEquals = await bcrypt.compare(
+      userDto.password,
+      user.password,
+    );
+
+    if (!passwordEquals) {
+      throw new UnauthorizedException({ message: 'Wrong email or password' });
+    }
+
+    return user;
+  }
+
   async login(userDto: CreateUserDto) {
     const user = await this.validateUser(userDto);
     return this.generateToken(user);
@@ -47,32 +74,5 @@ export class AuthService {
     }
 
     return this.generateToken(user);
-  }
-
-  private async generateToken(userDto: User): Promise<{ accessToken: string }> {
-    const payload = {
-      email: userDto.email,
-      id: userDto.id,
-      roles: userDto.roles,
-    };
-    return { accessToken: this.jwtService.sign(payload) };
-  }
-
-  private async validateUser(userDto: CreateUserDto) {
-    const user = await this.usersService.getUserByEmail(userDto.email);
-    if (!user) {
-      throw new UnauthorizedException({ message: 'Wrong email or password' });
-    }
-
-    const passwordEquals = await bcrypt.compare(
-      userDto.password,
-      user.password,
-    );
-
-    if (!passwordEquals) {
-      throw new UnauthorizedException({ message: 'Wrong email or password' });
-    }
-
-    return user;
   }
 }

@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { User } from './users.model';
 import { CreateUserDto } from './dto/create-user.dto';
 import { RolesService } from '../roles/roles.service';
-import { ROLES } from '../../constants';
+import { ROLES, ROLES_KEY } from '../../constants';
 
 @Injectable()
 export class UsersService {
@@ -24,7 +24,7 @@ export class UsersService {
       });
     }
 
-    await user.$set('roles', [role.id]);
+    await user.$set(ROLES_KEY, [role.id]);
     user.roles = [role];
 
     return user;
