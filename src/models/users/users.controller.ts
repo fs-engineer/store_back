@@ -14,17 +14,16 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { Roles } from '../../decorators/role-auth.decorator';
 import { ROLES } from '../../constants';
 import { RolesGuard } from '../../guards/roles.guard';
+import { Role } from '../roles/roles.model';
+import { AddRoleDto } from './dto/add-role.dto';
 
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
-  // swagger
   @ApiOperation({ summary: 'Create a user' })
-  // swagger
   @ApiResponse({ status: HttpStatus.CREATED, type: User })
-  // authorized roles
   @Roles([ROLES.admin])
   @UseGuards(RolesGuard)
   @Post()
@@ -39,5 +38,14 @@ export class UsersController {
   @Get()
   getAll(): Promise<User[]> {
     return this.usersService.getAllUsers();
+  }
+
+  @ApiOperation({ summary: 'Give out a role' })
+  @ApiResponse({ status: HttpStatus.OK, type: [Role] })
+  @Roles([ROLES.admin])
+  @UseGuards(RolesGuard)
+  @Post('/roles')
+  addRole(@Body() dto: AddRoleDto) {
+    return this.usersService.addRole(dto);
   }
 }

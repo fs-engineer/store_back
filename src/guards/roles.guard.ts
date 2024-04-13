@@ -11,6 +11,7 @@ import { Reflector } from '@nestjs/core';
 import { ROLES_KEY } from '../constants';
 import { Role } from '../models/roles/roles.model';
 
+// Roles Guard for endpoints
 @Injectable()
 export class RolesGuard implements CanActivate {
   constructor(
@@ -23,10 +24,11 @@ export class RolesGuard implements CanActivate {
   ): boolean | Promise<boolean> | Observable<boolean> {
     try {
       const requiredRoles =
-        this.reflector.getAllAndOverride(ROLES_KEY, [
+        this.reflector.getAllAndOverride<string[]>(ROLES_KEY, [
           context.getHandler(),
           context.getClass(),
         ]) || [];
+      // TODO need add token save and compare
       const req = context.switchToHttp().getRequest();
       const authHeader = req.headers['authorization'];
       const [bearer, token] = authHeader.split(' ');

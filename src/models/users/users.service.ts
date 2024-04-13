@@ -1,10 +1,15 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 
 import { User } from './users.model';
 import { CreateUserDto } from './dto/create-user.dto';
 import { RolesService } from '../roles/roles.service';
 import { ROLES, ROLES_KEY } from '../../constants';
+import { AddRoleDto } from './dto/add-role.dto';
 
 @Injectable()
 export class UsersService {
@@ -41,5 +46,17 @@ export class UsersService {
       where: { email },
       include: { all: true },
     });
+  }
+
+  async addRole(roleDto: AddRoleDto) {
+    const user = await this.userModel.findByPk(roleDto.userId);
+    const role = await this.roleService.getRoleByName(roleDto.name);
+    if (!user || !role) {
+      throw new NotFoundException();
+    }
+
+    await user.$add('roles', role.id);
+
+    return roleDto;
   }
 }
