@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { User } from './users.model';
 import { CreateUserDto } from './dto/create-user.dto';
 import { RolesService } from '../roles/roles.service';
-import { ROLES } from '../constants';
+import { ROLES } from '../../constants';
 
 @Injectable()
 export class UsersService {

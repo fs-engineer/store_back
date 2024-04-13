@@ -9,7 +9,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { User } from '../users/users.model';
 import { UserRoles } from './user-roles.model';
-import { ROLES } from '../constants';
+import { ROLES } from '../../constants';
 
 interface IRoleCreationAttributes {
   name: string;

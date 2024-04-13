@@ -3,12 +3,12 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
 import * as process from 'node:process';
 
-import { User } from './users/users.model';
-import { Role } from './roles/roles.model';
-import { UsersModule } from './users/users.module';
-import { RolesModule } from './roles/roles.module';
-import { UserRoles } from './roles/user-roles.model';
-import { AuthModule } from './auth/auth.module';
+import { User } from './models/users/users.model';
+import { Role } from './models/roles/roles.model';
+import { UsersModule } from './models/users/users.module';
+import { RolesModule } from './models/roles/roles.module';
+import { UserRoles } from './models/roles/user-roles.model';
+import { AuthModule } from './models/auth/auth.module';
 
 @Module({
   controllers: [],
