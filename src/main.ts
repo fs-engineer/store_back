@@ -19,7 +19,7 @@ async function server(): Promise<void> {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/api/docs', app, document);
 
-  // need add validation in models
+  //TODO need add validation in models
   app.useGlobalPipes(new ValidationPipe());
 
   await app.listen(PORT, (): void => {
