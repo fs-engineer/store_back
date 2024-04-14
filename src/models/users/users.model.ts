@@ -16,7 +16,7 @@ interface IUserCreationAttributes {
   password: string;
 }
 
-// TODO add user validation to swagger page
+// TODO add user token validation to swagger page
 @Table({ tableName: USERS_KEY })
 export class User extends Model<User, IUserCreationAttributes> {
   @ApiProperty({ example: '1', description: 'User unique id' })

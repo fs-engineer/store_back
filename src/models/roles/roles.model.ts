@@ -16,7 +16,6 @@ interface IRoleCreationAttributes {
   description: string;
 }
 
-// TODO add user validation to swagger page (token and etc.)
 @Table({ tableName: ROLES_KEY })
 export class Role extends Model<Role, IRoleCreationAttributes> {
   @ApiProperty({ example: '1', description: 'An unique id of the role' })
