@@ -1,9 +1,19 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  Table,
+} from 'sequelize-typescript';
+
 import { BRANDS_KEY } from '../../constants';
 import { ApiProperty } from '@nestjs/swagger';
+import { Country } from '../countries/countries.model';
 
 interface IBrandCreationAttributes {
   name: string;
+  countryId: number;
 }
 
 @Table({ tableName: BRANDS_KEY, createdAt: false, updatedAt: false })
@@ -23,4 +33,11 @@ export class Brand extends Model<Brand, IBrandCreationAttributes> {
     unique: true,
   })
   name: string;
+
+  @ForeignKey(() => Country)
+  @Column
+  countryId: number;
+
+  @BelongsTo(() => Country, { foreignKey: 'countryId' })
+  country: Country;
 }
