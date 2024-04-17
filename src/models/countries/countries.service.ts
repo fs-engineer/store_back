@@ -4,22 +4,23 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Country } from './countries.model';
 import { InjectModel } from '@nestjs/sequelize';
+
+import { Country } from './countries.model';
 import { CreateCountryDto } from './dto/create-country.dto';
 
 @Injectable()
 export class CountriesService {
   constructor(
-    @InjectModel(Country) private readonly countriesModel: typeof Country,
+    @InjectModel(Country) private readonly countryModel: typeof Country,
   ) {}
   async getAllCountries(): Promise<Country[]> {
-    return await this.countriesModel.findAll();
+    return await this.countryModel.findAll();
   }
 
   async addCountry(countryDto: CreateCountryDto) {
     try {
-      return await this.countriesModel.create(countryDto);
+      return await this.countryModel.create(countryDto);
     } catch (e) {
       if (e.name === 'SequelizeUniqueConstraintError') {
         return new HttpException(
@@ -31,7 +32,7 @@ export class CountriesService {
   }
 
   async deleteCountry(id: number) {
-    const deletedId = await this.countriesModel.destroy({ where: { id } });
+    const deletedId = await this.countryModel.destroy({ where: { id } });
 
     if (deletedId === 0) {
       throw new NotFoundException();
