@@ -10,6 +10,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { RolesService } from '../roles/roles.service';
 import { ROLES, ROLES_KEY } from '../../constants';
 import { AddRoleDto } from './dto/add-role.dto';
+import { Role } from '../roles/roles.model';
 
 @Injectable()
 export class UsersService {
@@ -37,14 +38,22 @@ export class UsersService {
 
   // TODO should change includes
   async getAllUsers(): Promise<User[]> {
-    return await this.userModel.findAll({ include: { all: true } });
+    return await this.userModel.findAll({
+      include: {
+        model: Role,
+        attributes: ['name', 'description'],
+      },
+    });
   }
 
   // TODO should change includes
   async getUserByEmail(email: string) {
     return await this.userModel.findOne({
       where: { email },
-      include: { all: true },
+      include: {
+        model: Role,
+        attributes: ['name', 'description'],
+      },
     });
   }
 
