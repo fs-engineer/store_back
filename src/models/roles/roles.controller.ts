@@ -17,7 +17,7 @@ import { RolesGuard } from '../../guards/roles.guard';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Roles')
-@Controller('/roles')
+@Controller('roles')
 export class RolesController {
   constructor(private rolesService: RolesService) {}
 

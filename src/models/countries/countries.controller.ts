@@ -13,7 +13,7 @@ import { CreateCountryDto } from './dto/create-country.dto';
 import { Country } from './countries.model';
 
 @ApiTags('Countries')
-@Controller('/countries')
+@Controller('countries')
 export class CountriesController {
   constructor(private readonly countriesService: CountriesService) {}
 

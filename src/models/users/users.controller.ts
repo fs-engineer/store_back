@@ -18,7 +18,7 @@ import { Role } from '../roles/roles.model';
 import { AddRoleDto } from './dto/add-role.dto';
 
 @ApiTags('Users')
-@Controller('/users')
+@Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
