@@ -10,6 +10,8 @@ import { RolesModule } from './models/roles/roles.module';
 import { UserRoles } from './models/roles/user-roles.model';
 import { AuthModule } from './models/auth/auth.module';
 import { ProductsModule } from './models/products/products.module';
+import { BrandsModule } from './models/brands/brands.module';
+import { CountriesModule } from './models/countries/countries.module';
 
 @Module({
   controllers: [],
@@ -32,6 +34,8 @@ import { ProductsModule } from './models/products/products.module';
     RolesModule,
     AuthModule,
     ProductsModule,
+    BrandsModule,
+    CountriesModule,
   ],
 })
 export class AppModule {}
