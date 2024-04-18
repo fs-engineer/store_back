@@ -1,18 +1,18 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { ProductsService } from './products.service';
+import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 
-// TODO need to add swagger and roles guard
+// TODO need to add swagger and role guard
 @Controller('products')
-export class ProductsController {
-  constructor(private readonly productsService: ProductsService) {}
+export class ProductController {
+  constructor(private readonly productsService: ProductService) {}
 
-  @Post('/')
+  @Post()
   create(@Body() productDto: CreateProductDto) {
     return this.productsService.createProduct(productDto);
   }
 
-  @Get('/')
+  @Get()
   getAll() {
     return this.productsService.getAllProducts();
   }

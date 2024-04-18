@@ -2,12 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 
 import { CreateProductDto } from './dto/create-product.dto';
-import { Product } from './products.model';
-import { Brand } from '../brands/brands.model';
-import { Country } from '../countries/countries.model';
+import { Product } from './product.entity';
+import { Brand } from '../brand/brand.entity';
+import { Country } from '../country/country.entity';
 
 @Injectable()
-export class ProductsService {
+export class ProductService {
   constructor(@InjectModel(Product) private productModel: typeof Product) {}
 
   async createProduct(productDto: CreateProductDto) {

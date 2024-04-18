@@ -8,7 +8,7 @@ import {
 } from 'sequelize-typescript';
 import { PRODUCTS_KEY } from '../../constants';
 import { ApiProperty } from '@nestjs/swagger';
-import { Brand } from '../brands/brands.model';
+import { Brand } from '../brand/brand.entity';
 
 interface IProductCreationAttributes {
   name: string;

@@ -8,19 +8,19 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { UsersService } from './users.service';
-import { User } from './users.model';
+import { UserService } from './user.service';
+import { User } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { Roles } from '../../decorators/role-auth.decorator';
 import { roles } from '../../constants';
 import { RolesGuard } from '../../guards/roles.guard';
-import { Role } from '../roles/roles.model';
+import { Role } from '../role/role.entity';
 import { AddRoleDto } from './dto/add-role.dto';
 
 @ApiTags('Users')
 @Controller('users')
-export class UsersController {
-  constructor(private usersService: UsersService) {}
+export class UserController {
+  constructor(private usersService: UserService) {}
 
   @ApiOperation({ summary: 'Create a user' })
   @ApiResponse({ status: HttpStatus.CREATED, type: User })
@@ -31,7 +31,7 @@ export class UsersController {
     return this.usersService.createUser(userDto);
   }
 
-  @ApiOperation({ summary: 'Find all users' })
+  @ApiOperation({ summary: 'Find all user' })
   @ApiResponse({ status: HttpStatus.OK, type: [User] })
   @Roles([roles.ADMIN])
   @UseGuards(RolesGuard)
@@ -44,7 +44,7 @@ export class UsersController {
   @ApiResponse({ status: HttpStatus.OK, type: [Role] })
   @Roles([roles.ADMIN])
   @UseGuards(RolesGuard)
-  @Post('/roles')
+  @Post('/role')
   addRole(@Body() dto: AddRoleDto) {
     return this.usersService.addRole(dto);
   }

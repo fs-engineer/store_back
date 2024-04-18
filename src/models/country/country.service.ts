@@ -6,11 +6,11 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 
-import { Country } from './countries.model';
+import { Country } from './country.entity';
 import { CreateCountryDto } from './dto/create-country.dto';
 
 @Injectable()
-export class CountriesService {
+export class CountryService {
   constructor(
     @InjectModel(Country) private readonly countryModel: typeof Country,
   ) {}

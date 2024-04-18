@@ -5,12 +5,12 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { Brand } from './brands.model';
+import { Brand } from './brand.entity';
 import { CreateBrandDto } from './dto/create-brand.dto';
-import { Country } from '../countries/countries.model';
+import { Country } from '../country/country.entity';
 
 @Injectable()
-export class BrandsService {
+export class BrandService {
   constructor(@InjectModel(Brand) private brandModel: typeof Brand) {}
 
   async getAllBrands() {

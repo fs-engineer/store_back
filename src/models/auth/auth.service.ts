@@ -7,26 +7,23 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 
-import { CreateUserDto } from '../users/dto/create-user.dto';
-import { UsersService } from '../users/users.service';
-import { User } from '../users/users.model';
+import { CreateUserDto } from '../user/dto/create-user.dto';
+import { UserService } from '../user/user.service';
+import { User } from '../user/user.entity';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private usersService: UsersService,
+    private usersService: UserService,
     private jwtService: JwtService,
   ) {}
 
+  // TODO need to check why don't work without the userRoles info
   private async generateToken(userDto: User): Promise<{ accessToken: string }> {
-    const userRoles = userDto.roles.map(({ name, description }) => ({
-      name,
-      description,
-    }));
     const payload = {
       email: userDto.email,
       id: userDto.id,
-      userRoles,
+      roles: userDto.roles,
     };
     return { accessToken: this.jwtService.sign(payload) };
   }

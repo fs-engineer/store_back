@@ -6,8 +6,8 @@ import {
   Table,
 } from 'sequelize-typescript';
 
-import { User } from '../users/users.model';
-import { Role } from './roles.model';
+import { User } from '../user/user.entity';
+import { Role } from './role.entity';
 import { USER_ROLES_KEY } from '../../constants';
 
 @Table({ tableName: USER_ROLES_KEY, createdAt: false, updatedAt: false })

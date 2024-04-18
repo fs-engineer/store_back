@@ -4,18 +4,18 @@ import { CreateProductTypeDto } from './dto/create-product-type.dto';
 import { ProductType } from './entity/product-type.entity';
 import { ApiTags } from '@nestjs/swagger';
 
-// TODO need to add roles guard and swagger
+// TODO need to add role guard and swagger
 @ApiTags('ProductTypes')
 @Controller('product-types')
 export class ProductTypeController {
   constructor(private productTypeService: ProductTypeService) {}
 
-  @Post('/')
+  @Post()
   create(@Body() productTypeDto: CreateProductTypeDto): Promise<ProductType> {
     return this.productTypeService.createProductType(productTypeDto);
   }
 
-  @Get('/')
+  @Get()
   getAll(): Promise<ProductType[]> {
     return this.productTypeService.getAllProductTypes();
   }

@@ -10,23 +10,23 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { BrandsService } from './brands.service';
+import { BrandService } from './brand.service';
 import { CreateBrandDto } from './dto/create-brand.dto';
 import { Roles } from '../../decorators/role-auth.decorator';
 import { roles } from '../../constants';
 import { RolesGuard } from '../../guards/roles.guard';
-import { Brand } from './brands.model';
+import { Brand } from './brand.entity';
 
 @ApiTags('Brands')
 @Controller('brands')
-export class BrandsController {
-  constructor(private readonly brandsService: BrandsService) {}
+export class BrandController {
+  constructor(private readonly brandsService: BrandService) {}
 
-  @ApiOperation({ summary: 'Get all brands' })
+  @ApiOperation({ summary: 'Get all brand' })
   @ApiResponse({ status: HttpStatus.OK, type: [Brand] })
   @Roles([roles.ADMIN])
   @UseGuards(RolesGuard)
-  @Get('/')
+  @Get()
   getAll() {
     return this.brandsService.getAllBrands();
   }
@@ -35,7 +35,7 @@ export class BrandsController {
   @ApiResponse({ status: HttpStatus.CREATED, type: Brand })
   @Roles([roles.ADMIN])
   @UseGuards(RolesGuard)
-  @Post('/')
+  @Post()
   add(@Body() brandDto: CreateBrandDto) {
     return this.brandsService.createBrand(brandDto);
   }

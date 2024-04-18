@@ -8,33 +8,33 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { CountriesService } from './countries.service';
+import { CountryService } from './country.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateCountryDto } from './dto/create-country.dto';
-import { Country } from './countries.model';
+import { Country } from './country.entity';
 import { Roles } from '../../decorators/role-auth.decorator';
 import { roles } from '../../constants';
 import { RolesGuard } from '../../guards/roles.guard';
 
 @ApiTags('Countries')
 @Controller('countries')
-export class CountriesController {
-  constructor(private readonly countriesService: CountriesService) {}
+export class CountryController {
+  constructor(private readonly countriesService: CountryService) {}
 
   @ApiOperation({ summary: 'Create country instance' })
   @ApiResponse({ status: HttpStatus.CREATED, type: Country })
   @Roles([roles.ADMIN])
   @UseGuards(RolesGuard)
-  @Post('/')
+  @Post()
   add(@Body() countryDto: CreateCountryDto) {
     return this.countriesService.addCountry(countryDto);
   }
 
-  @ApiOperation({ summary: 'Get all countries' })
+  @ApiOperation({ summary: 'Get all country' })
   @ApiResponse({ status: HttpStatus.OK, type: [Country] })
   @Roles([roles.ADMIN])
   @UseGuards(RolesGuard)
-  @Get('/')
+  @Get()
   getAllCountries() {
     return this.countriesService.getAllCountries();
   }

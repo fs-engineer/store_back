@@ -9,7 +9,7 @@ import {
 
 import { BRANDS_KEY } from '../../constants';
 import { ApiProperty } from '@nestjs/swagger';
-import { Country } from '../countries/countries.model';
+import { Country } from '../country/country.entity';
 
 interface IBrandCreationAttributes {
   name: string;

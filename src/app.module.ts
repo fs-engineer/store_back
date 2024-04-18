@@ -3,15 +3,15 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
 import * as process from 'node:process';
 
-import { User } from './models/users/users.model';
-import { Role } from './models/roles/roles.model';
-import { UsersModule } from './models/users/users.module';
-import { RolesModule } from './models/roles/roles.module';
-import { UserRoles } from './models/roles/user-roles.model';
+import { User } from './models/user/user.entity';
+import { Role } from './models/role/role.entity';
+import { UserModule } from './models/user/user.module';
+import { RoleModule } from './models/role/role.module';
+import { UserRoles } from './models/role/user-role.model';
 import { AuthModule } from './models/auth/auth.module';
-import { ProductsModule } from './models/products/products.module';
-import { BrandsModule } from './models/brands/brands.module';
-import { CountriesModule } from './models/countries/countries.module';
+import { ProductModule } from './models/product/product.module';
+import { BrandModule } from './models/brand/brand.module';
+import { CountryModule } from './models/country/country.module';
 import { ProductTypeModule } from './models/product-type/product-type.module';
 
 @Module({
@@ -29,12 +29,12 @@ import { ProductTypeModule } from './models/product-type/product-type.module';
       models: [User, Role, UserRoles],
       autoLoadModels: true,
     }),
-    UsersModule,
-    RolesModule,
+    UserModule,
+    RoleModule,
     AuthModule,
-    ProductsModule,
-    BrandsModule,
-    CountriesModule,
+    ProductModule,
+    BrandModule,
+    CountryModule,
     ProductTypeModule,
   ],
 })

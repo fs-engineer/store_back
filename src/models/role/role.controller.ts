@@ -8,9 +8,9 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
-import { RolesService } from './roles.service';
+import { RoleService } from './role.service';
 import { CreateRoleDto } from './dto/create-role.dto';
-import { Role } from './roles.model';
+import { Role } from './role.entity';
 import { Roles } from '../../decorators/role-auth.decorator';
 import { roles } from '../../constants';
 import { RolesGuard } from '../../guards/roles.guard';
@@ -18,8 +18,8 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Roles')
 @Controller('roles')
-export class RolesController {
-  constructor(private rolesService: RolesService) {}
+export class RoleController {
+  constructor(private rolesService: RoleService) {}
 
   @ApiOperation({ summary: 'Create role' })
   @ApiResponse({ status: HttpStatus.CREATED, type: Role })
@@ -39,7 +39,7 @@ export class RolesController {
     return this.rolesService.getRoleByName(name);
   }
 
-  @ApiOperation({ summary: 'Get all roles' })
+  @ApiOperation({ summary: 'Get all role' })
   @ApiResponse({ status: HttpStatus.OK, type: [Role] })
   @Roles([roles.ADMIN])
   @UseGuards(RolesGuard)

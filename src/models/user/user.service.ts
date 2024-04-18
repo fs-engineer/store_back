@@ -5,18 +5,18 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 
-import { User } from './users.model';
+import { User } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
-import { RolesService } from '../roles/roles.service';
+import { RoleService } from '../role/role.service';
 import { roles, ROLES_KEY } from '../../constants';
 import { AddRoleDto } from './dto/add-role.dto';
-import { Role } from '../roles/roles.model';
+import { Role } from '../role/role.entity';
 
 @Injectable()
-export class UsersService {
+export class UserService {
   constructor(
     @InjectModel(User) private userModel: typeof User,
-    private roleService: RolesService,
+    private roleService: RoleService,
   ) {}
 
   async createUser(userDto: CreateUserDto) {
