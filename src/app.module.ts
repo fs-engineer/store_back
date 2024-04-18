@@ -12,10 +12,9 @@ import { AuthModule } from './models/auth/auth.module';
 import { ProductsModule } from './models/products/products.module';
 import { BrandsModule } from './models/brands/brands.module';
 import { CountriesModule } from './models/countries/countries.module';
+import { ProductTypeModule } from './models/product-type/product-type.module';
 
 @Module({
-  controllers: [],
-  providers: [],
   imports: [
     ConfigModule.forRoot({
       envFilePath: `.env.${process.env.NODE_ENV || 'development'}`,
@@ -36,6 +35,7 @@ import { CountriesModule } from './models/countries/countries.module';
     ProductsModule,
     BrandsModule,
     CountriesModule,
+    ProductTypeModule,
   ],
 })
 export class AppModule {}

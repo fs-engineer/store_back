@@ -19,3 +19,6 @@ export const COUNTRIES_KEY = 'countries';
 
 // BRANDS
 export const BRANDS_KEY = 'brands';
+
+// PRODUCT-TYPE
+export const PRODUCT_TYPE_KEY = 'product_types';
