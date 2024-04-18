@@ -19,10 +19,14 @@ export class AuthService {
   ) {}
 
   private async generateToken(userDto: User): Promise<{ accessToken: string }> {
+    const userRoles = userDto.roles.map(({ name, description }) => ({
+      name,
+      description,
+    }));
     const payload = {
       email: userDto.email,
       id: userDto.id,
-      roles: userDto.roles,
+      userRoles,
     };
     return { accessToken: this.jwtService.sign(payload) };
   }
