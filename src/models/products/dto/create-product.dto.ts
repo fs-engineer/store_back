@@ -1,4 +1,4 @@
-import { IsBoolean, IsInt, IsNotEmpty, IsString } from 'class-validator';
+import { IsInt, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateProductDto {
@@ -17,13 +17,6 @@ export class CreateProductDto {
   @IsString()
   @IsNotEmpty()
   readonly description: string;
-
-  @ApiProperty({
-    example: 'true',
-    description: 'Is product added to the favorites',
-  })
-  @IsBoolean()
-  favorites?: boolean;
 
   @ApiProperty({
     example:

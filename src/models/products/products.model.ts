@@ -1,13 +1,20 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  Table,
+} from 'sequelize-typescript';
 import { PRODUCTS_KEY } from '../../constants';
 import { ApiProperty } from '@nestjs/swagger';
+import { Brand } from '../brands/brands.model';
 
 interface IProductCreationAttributes {
   name: string;
   price: number;
   description: string;
   wayToUse?: string;
-  recommended?: boolean;
 }
 
 @Table({ tableName: PRODUCTS_KEY })
@@ -47,13 +54,13 @@ export class Product extends Model<Product, IProductCreationAttributes> {
 
   @ApiProperty({
     example: 'true',
-    description: 'Is product added to the favorites',
+    description: 'Is product added to the favorites?',
   })
   @Column({
     type: DataType.BOOLEAN,
     defaultValue: false,
   })
-  readonly favorites: boolean;
+  readonly favorite: boolean;
 
   @ApiProperty({
     example:
@@ -76,4 +83,11 @@ export class Product extends Model<Product, IProductCreationAttributes> {
     defaultValue: false,
   })
   readonly recommended: boolean;
+
+  @ForeignKey(() => Brand)
+  @Column
+  brandId: number;
+
+  @BelongsTo(() => Brand, { foreignKey: 'brandId' })
+  brand: Brand;
 }
