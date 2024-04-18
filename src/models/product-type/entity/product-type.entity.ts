@@ -1,6 +1,14 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsToMany,
+  Column,
+  DataType,
+  Model,
+  Table,
+} from 'sequelize-typescript';
 import { PRODUCT_TYPE_KEY } from '../../../constants';
 import { ApiProperty } from '@nestjs/swagger';
+import { Product } from '../../product/product.entity';
+import { ProductTypeMapping } from './product-type-mapping.entity';
 
 interface IProductsCreationAttributes {
   name: string;
@@ -26,4 +34,7 @@ export class ProductType extends Model<
     unique: true,
   })
   name: string;
+
+  @BelongsToMany(() => Product, () => ProductTypeMapping)
+  products: Product[];
 }

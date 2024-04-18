@@ -13,6 +13,11 @@ import { ProductModule } from './models/product/product.module';
 import { BrandModule } from './models/brand/brand.module';
 import { CountryModule } from './models/country/country.module';
 import { ProductTypeModule } from './models/product-type/product-type.module';
+import { Brand } from './models/brand/brand.entity';
+import { Country } from './models/country/country.entity';
+import { ProductType } from './models/product-type/entity/product-type.entity';
+import { Product } from './models/product/product.entity';
+import { ProductTypeMapping } from './models/product-type/entity/product-type-mapping.entity';
 
 @Module({
   imports: [
@@ -26,7 +31,16 @@ import { ProductTypeModule } from './models/product-type/product-type.module';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      models: [User, Role, UserRole],
+      models: [
+        User,
+        Role,
+        UserRole,
+        Country,
+        Product,
+        ProductType,
+        Brand,
+        ProductTypeMapping,
+      ],
       autoLoadModels: true,
     }),
     UserModule,

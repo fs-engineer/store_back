@@ -1,5 +1,6 @@
 import {
   BelongsTo,
+  BelongsToMany,
   Column,
   DataType,
   ForeignKey,
@@ -9,6 +10,8 @@ import {
 import { PRODUCTS_KEY } from '../../constants';
 import { ApiProperty } from '@nestjs/swagger';
 import { Brand } from '../brand/brand.entity';
+import { ProductTypeMapping } from '../product-type/entity/product-type-mapping.entity';
+import { ProductType } from '../product-type/entity/product-type.entity';
 
 interface IProductCreationAttributes {
   name: string;
@@ -90,4 +93,7 @@ export class Product extends Model<Product, IProductCreationAttributes> {
 
   @BelongsTo(() => Brand, { foreignKey: 'brandId' })
   brand: Brand;
+
+  @BelongsToMany(() => ProductType, () => ProductTypeMapping)
+  productTypes: ProductType[];
 }

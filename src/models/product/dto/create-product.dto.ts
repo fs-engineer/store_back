@@ -1,4 +1,4 @@
-import { IsInt, IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsInt, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateProductDto {
@@ -25,4 +25,11 @@ export class CreateProductDto {
   })
   @IsString()
   readonly wayToUse?: string;
+
+  @ApiProperty({
+    example: '[1, 2, 3]',
+    description: 'Array of product types ids: number',
+  })
+  @IsArray()
+  readonly productTypes: number[];
 }
