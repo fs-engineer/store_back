@@ -12,7 +12,7 @@ import { UsersService } from './users.service';
 import { User } from './users.model';
 import { CreateUserDto } from './dto/create-user.dto';
 import { Roles } from '../../decorators/role-auth.decorator';
-import { ROLES } from '../../constants';
+import { roles } from '../../constants';
 import { RolesGuard } from '../../guards/roles.guard';
 import { Role } from '../roles/roles.model';
 import { AddRoleDto } from './dto/add-role.dto';
@@ -24,7 +24,7 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Create a user' })
   @ApiResponse({ status: HttpStatus.CREATED, type: User })
-  @Roles([ROLES.admin])
+  @Roles([roles.ADMIN])
   @UseGuards(RolesGuard)
   @Post()
   create(@Body() userDto: CreateUserDto) {
@@ -33,7 +33,7 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Find all users' })
   @ApiResponse({ status: HttpStatus.OK, type: [User] })
-  @Roles([ROLES.admin])
+  @Roles([roles.ADMIN])
   @UseGuards(RolesGuard)
   @Get()
   getAll(): Promise<User[]> {
@@ -42,7 +42,7 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Give out a role' })
   @ApiResponse({ status: HttpStatus.OK, type: [Role] })
-  @Roles([ROLES.admin])
+  @Roles([roles.ADMIN])
   @UseGuards(RolesGuard)
   @Post('/roles')
   addRole(@Body() dto: AddRoleDto) {

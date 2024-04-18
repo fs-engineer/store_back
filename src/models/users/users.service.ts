@@ -8,7 +8,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { User } from './users.model';
 import { CreateUserDto } from './dto/create-user.dto';
 import { RolesService } from '../roles/roles.service';
-import { ROLES, ROLES_KEY } from '../../constants';
+import { roles, ROLES_KEY } from '../../constants';
 import { AddRoleDto } from './dto/add-role.dto';
 import { Role } from '../roles/roles.model';
 
@@ -21,7 +21,7 @@ export class UsersService {
 
   async createUser(userDto: CreateUserDto) {
     const user = await this.userModel.create(userDto);
-    const role = await this.roleService.getRoleByName(ROLES.user);
+    const role = await this.roleService.getRoleByName(roles.USER);
 
     if (!role) {
       throw new InternalServerErrorException({

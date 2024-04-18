@@ -13,7 +13,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BrandsService } from './brands.service';
 import { CreateBrandDto } from './dto/create-brand.dto';
 import { Roles } from '../../decorators/role-auth.decorator';
-import { ROLES } from '../../constants';
+import { roles } from '../../constants';
 import { RolesGuard } from '../../guards/roles.guard';
 import { Brand } from './brands.model';
 
@@ -24,7 +24,7 @@ export class BrandsController {
 
   @ApiOperation({ summary: 'Get all brands' })
   @ApiResponse({ status: HttpStatus.OK, type: [Brand] })
-  @Roles([ROLES.admin])
+  @Roles([roles.ADMIN])
   @UseGuards(RolesGuard)
   @Get('/')
   getAll() {
@@ -33,7 +33,7 @@ export class BrandsController {
 
   @ApiOperation({ summary: 'Create brand' })
   @ApiResponse({ status: HttpStatus.CREATED, type: Brand })
-  @Roles([ROLES.admin])
+  @Roles([roles.ADMIN])
   @UseGuards(RolesGuard)
   @Post('/')
   add(@Body() brandDto: CreateBrandDto) {
@@ -42,7 +42,7 @@ export class BrandsController {
 
   @ApiOperation({ summary: 'Delete brand' })
   @ApiResponse({ status: HttpStatus.OK, type: String })
-  @Roles([ROLES.admin])
+  @Roles([roles.ADMIN])
   @UseGuards(RolesGuard)
   @Delete('/:id')
   delete(@Param('id') id: number) {

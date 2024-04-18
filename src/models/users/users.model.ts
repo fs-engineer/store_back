@@ -36,6 +36,14 @@ export class User extends Model<User, IUserCreationAttributes> {
   @Column({ type: DataType.STRING, allowNull: false })
   password: string;
 
+  @ApiProperty({ example: 'Vika', description: 'User name' })
+  @Column({ type: DataType.STRING })
+  name: string;
+
+  @ApiProperty({ example: 'Kiss', description: 'User last name' })
+  @Column({ type: DataType.STRING })
+  lastName: string;
+
   @ApiProperty({ example: '063010101', description: 'User phone number' })
   @Column({ type: DataType.STRING })
   number: string;
@@ -43,6 +51,10 @@ export class User extends Model<User, IUserCreationAttributes> {
   @ApiProperty({ example: '01.01.1970', description: 'User birth date' })
   @Column({ type: DataType.DATE })
   birthDate: Date;
+
+  // TODO need to add a basket
+  // @Column({ type: DataType.INTEGER, allowNull: false })
+  // basketId: number;
 
   @BelongsToMany(() => Role, () => UserRoles)
   roles: Role[];

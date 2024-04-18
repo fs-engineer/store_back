@@ -13,7 +13,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateCountryDto } from './dto/create-country.dto';
 import { Country } from './countries.model';
 import { Roles } from '../../decorators/role-auth.decorator';
-import { ROLES } from '../../constants';
+import { roles } from '../../constants';
 import { RolesGuard } from '../../guards/roles.guard';
 
 @ApiTags('Countries')
@@ -23,7 +23,7 @@ export class CountriesController {
 
   @ApiOperation({ summary: 'Create country instance' })
   @ApiResponse({ status: HttpStatus.CREATED, type: Country })
-  @Roles([ROLES.admin])
+  @Roles([roles.ADMIN])
   @UseGuards(RolesGuard)
   @Post('/')
   add(@Body() countryDto: CreateCountryDto) {
@@ -32,7 +32,7 @@ export class CountriesController {
 
   @ApiOperation({ summary: 'Get all countries' })
   @ApiResponse({ status: HttpStatus.OK, type: [Country] })
-  @Roles([ROLES.admin])
+  @Roles([roles.ADMIN])
   @UseGuards(RolesGuard)
   @Get('/')
   getAllCountries() {
@@ -41,7 +41,7 @@ export class CountriesController {
 
   @ApiOperation({ summary: 'Create country instance' })
   @ApiResponse({ status: HttpStatus.OK, type: String })
-  @Roles([ROLES.admin])
+  @Roles([roles.ADMIN])
   @UseGuards(RolesGuard)
   @Delete('/:id')
   delete(@Param('id') id: number) {

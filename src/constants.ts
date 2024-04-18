@@ -1,7 +1,7 @@
 // ROLES
-export const ROLES = {
-  admin: 'ADMIN',
-  user: 'USER',
+export const roles = {
+  ADMIN: 'ADMIN',
+  USER: 'USER',
 };
 export const ROLES_KEY = 'roles';
 
