@@ -19,9 +19,9 @@ export class UserService {
     private roleService: RoleService,
   ) {}
 
-  async createUser(userDto: CreateUserDto) {
-    const user = await this.userModel.create(userDto);
-    const role = await this.roleService.getRoleByName(roles.USER);
+  async createUser(userDto: CreateUserDto): Promise<User> {
+    const user: User = await this.userModel.create(userDto);
+    const role: Role | null = await this.roleService.getRoleByName(roles.USER);
 
     if (!role) {
       throw new InternalServerErrorException({
@@ -47,7 +47,7 @@ export class UserService {
   }
 
   // TODO should change includes
-  async getUserByEmail(email: string) {
+  async getUserByEmail(email: string): Promise<User | null> {
     return await this.userModel.findOne({
       where: { email },
       include: {
@@ -57,7 +57,7 @@ export class UserService {
     });
   }
 
-  async addRole(roleDto: AddRoleDto) {
+  async addRole(roleDto: AddRoleDto): Promise<AddRoleDto> {
     const user = await this.userModel.findByPk(roleDto.userId);
     const role = await this.roleService.getRoleByName(roleDto.name);
     if (!user || !role) {
