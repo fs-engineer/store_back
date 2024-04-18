@@ -14,7 +14,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { Roles } from '../../decorators/role-auth.decorator';
 import { roles } from '../../constants';
 import { RolesGuard } from '../../guards/roles.guard';
-import { Role } from '../role/role.entity';
+import { Role } from '../role/entity/role.entity';
 import { AddRoleDto } from './dto/add-role.dto';
 
 @ApiTags('Users')

@@ -10,7 +10,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { RoleService } from '../role/role.service';
 import { roles, ROLES_KEY } from '../../constants';
 import { AddRoleDto } from './dto/add-role.dto';
-import { Role } from '../role/role.entity';
+import { Role } from '../role/entity/role.entity';
 
 @Injectable()
 export class UserService {

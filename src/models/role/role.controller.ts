@@ -10,7 +10,7 @@ import {
 
 import { RoleService } from './role.service';
 import { CreateRoleDto } from './dto/create-role.dto';
-import { Role } from './role.entity';
+import { Role } from './entity/role.entity';
 import { Roles } from '../../decorators/role-auth.decorator';
 import { roles } from '../../constants';
 import { RolesGuard } from '../../guards/roles.guard';

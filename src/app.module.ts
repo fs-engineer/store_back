@@ -4,10 +4,10 @@ import { ConfigModule } from '@nestjs/config';
 import * as process from 'node:process';
 
 import { User } from './models/user/user.entity';
-import { Role } from './models/role/role.entity';
+import { Role } from './models/role/entity/role.entity';
 import { UserModule } from './models/user/user.module';
 import { RoleModule } from './models/role/role.module';
-import { UserRoles } from './models/role/user-role.model';
+import { UserRole } from './models/role/entity/user-role.entity';
 import { AuthModule } from './models/auth/auth.module';
 import { ProductModule } from './models/product/product.module';
 import { BrandModule } from './models/brand/brand.module';
@@ -26,7 +26,7 @@ import { ProductTypeModule } from './models/product-type/product-type.module';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      models: [User, Role, UserRoles],
+      models: [User, Role, UserRole],
       autoLoadModels: true,
     }),
     UserModule,

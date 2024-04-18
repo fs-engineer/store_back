@@ -6,12 +6,12 @@ import {
   Table,
 } from 'sequelize-typescript';
 
-import { User } from '../user/user.entity';
+import { User } from '../../user/user.entity';
 import { Role } from './role.entity';
-import { USER_ROLES_KEY } from '../../constants';
+import { USER_ROLES_KEY } from '../../../constants';
 
 @Table({ tableName: USER_ROLES_KEY, createdAt: false, updatedAt: false })
-export class UserRoles extends Model<UserRoles> {
+export class UserRole extends Model<UserRole> {
   @Column({
     type: DataType.INTEGER,
     unique: true,

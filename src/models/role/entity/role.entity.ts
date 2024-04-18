@@ -1,7 +1,7 @@
 import { Column, DataType, Model, Table } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
 
-import { ROLES_KEY } from '../../constants';
+import { ROLES_KEY } from '../../../constants';
 
 interface IRoleCreationAttributes {
   name: string;

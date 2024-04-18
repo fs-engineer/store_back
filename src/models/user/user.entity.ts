@@ -7,8 +7,8 @@ import {
 } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
 
-import { Role } from '../role/role.entity';
-import { UserRoles } from '../role/user-role.model';
+import { Role } from '../role/entity/role.entity';
+import { UserRole } from '../role/entity/user-role.entity';
 import { USERS_KEY } from '../../constants';
 
 interface IUserCreationAttributes {
@@ -56,6 +56,6 @@ export class User extends Model<User, IUserCreationAttributes> {
   // @Column({ type: DataType.INTEGER, allowNull: false })
   // basketId: number;
 
-  @BelongsToMany(() => Role, () => UserRoles)
+  @BelongsToMany(() => Role, () => UserRole)
   roles: Role[];
 }
