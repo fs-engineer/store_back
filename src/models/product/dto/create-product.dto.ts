@@ -32,4 +32,11 @@ export class CreateProductDto {
   })
   @IsArray()
   readonly productTypes: number[];
+
+  @ApiProperty({
+    example: '[1, 2, 3]',
+    description: 'Array of product hair types id: number',
+  })
+  @IsArray()
+  readonly hairTypes: number[];
 }

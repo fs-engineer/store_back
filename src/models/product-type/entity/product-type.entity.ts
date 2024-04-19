@@ -29,10 +29,7 @@ export class ProductType extends Model<
   id: number;
 
   @ApiProperty({ example: 'Shampoo', description: 'Product type name' })
-  @Column({
-    type: DataType.STRING,
-    unique: true,
-  })
+  @Column({ type: DataType.STRING, unique: true })
   name: string;
 
   @BelongsToMany(() => Product, () => ProductTypeMapping)

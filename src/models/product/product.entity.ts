@@ -12,6 +12,8 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Brand } from '../brand/brand.entity';
 import { ProductTypeMapping } from '../product-type/entity/product-type-mapping.entity';
 import { ProductType } from '../product-type/entity/product-type.entity';
+import { HairType } from '../hair-type/entity/hair-type.entity';
+import { ProductHairTypeMapping } from '../hair-type/entity/product-hair-type-mapping.entity';
 
 interface IProductCreationAttributes {
   name: string;
@@ -96,4 +98,7 @@ export class Product extends Model<Product, IProductCreationAttributes> {
 
   @BelongsToMany(() => ProductType, () => ProductTypeMapping)
   productTypes: ProductType[];
+
+  @BelongsToMany(() => HairType, () => ProductHairTypeMapping)
+  hairTypes: HairType[];
 }

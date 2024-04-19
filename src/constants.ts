@@ -22,3 +22,6 @@ export const BRANDS_KEY = 'brands';
 
 // PRODUCT-TYPE
 export const PRODUCT_TYPE_KEY = 'product_types';
+
+// HAIR-TYPE
+export const HAIR_TYPE_KEY = 'hair_types';
