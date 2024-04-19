@@ -7,9 +7,10 @@ import {
 } from 'sequelize-typescript';
 import { Product } from '../../product/product.entity';
 import { HairType } from '../../hair-type/entity/hair-type.entity';
+import { table } from '../../../constants';
 
 @Table({
-  tableName: 'product-hair-type-mapping',
+  tableName: table.PRODUCT_HAIR_TYPE_MAPPING,
   createdAt: false,
   updatedAt: false,
 })

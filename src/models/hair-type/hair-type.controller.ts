@@ -3,6 +3,7 @@ import { HairTypeService } from './hair-type.service';
 import { HairType } from './entity/hair-type.entity';
 import { CreateHairTypeDto } from './dto/create-hair-type.dto';
 
+// TODO need to add swagger
 @Controller('hair-types')
 export class HairTypeController {
   constructor(private readonly hairTypeService: HairTypeService) {}

@@ -5,7 +5,7 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { PRODUCT_TYPE_KEY } from '../../../constants';
+import { table } from '../../../constants';
 import { ApiProperty } from '@nestjs/swagger';
 import { Product } from '../../product/product.entity';
 import { ProductTypeOfProductsMapping } from '../../product-type-of-products-mapping/entity/product-type-of-products-mapping.entity';
@@ -14,7 +14,7 @@ interface IProductsCreationAttributes {
   name: string;
 }
 
-@Table({ tableName: PRODUCT_TYPE_KEY })
+@Table({ tableName: table.PRODUCTS_TYPES })
 export class ProductType extends Model<
   ProductType,
   IProductsCreationAttributes

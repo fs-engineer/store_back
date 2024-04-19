@@ -1,14 +1,14 @@
 import { Column, DataType, Model, Table } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
 
-import { ROLES_KEY } from '../../../constants';
+import { table } from '../../../constants';
 
 interface IRoleCreationAttributes {
   name: string;
   description: string;
 }
 
-@Table({ tableName: ROLES_KEY })
+@Table({ tableName: table.ROLES })
 export class Role extends Model<Role, IRoleCreationAttributes> {
   @ApiProperty({ example: '1', description: 'An unique id of the role' })
   @Column({

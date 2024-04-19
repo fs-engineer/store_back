@@ -9,7 +9,7 @@ export const ROLES_KEY = 'roles';
 export const USERS_KEY = 'users';
 
 // USER_ROLES
-export const USER_ROLES_KEY = 'user_roles';
+export const USER_ROLES_KEY = 'userRoles';
 
 // PRODUCTS
 export const PRODUCTS_KEY = 'products';
@@ -21,7 +21,20 @@ export const COUNTRIES_KEY = 'countries';
 export const BRANDS_KEY = 'brands';
 
 // PRODUCT-TYPE
-export const PRODUCT_TYPE_KEY = 'product_types';
+export const PRODUCT_TYPE_KEY = 'productTypes';
 
 // HAIR-TYPE
-export const HAIR_TYPE_KEY = 'hair_types';
+export const HAIR_TYPE_KEY = 'hairTypes';
+
+export const table = {
+  ROLES: 'roles',
+  USERS: 'users',
+  USER_ROLES: 'user_roles_mapping',
+  PRODUCTS: 'products',
+  COUNTRIES: 'countries',
+  BRANDS: 'brands',
+  PRODUCTS_TYPES: 'product_types',
+  HAIR_TYPE: 'hair_types',
+  PRODUCT_TYPE_MAPPING: 'product_type_mapping',
+  PRODUCT_HAIR_TYPE_MAPPING: 'product-hair-type-mapping',
+};

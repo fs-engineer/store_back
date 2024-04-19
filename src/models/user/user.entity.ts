@@ -9,7 +9,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { Role } from '../role/entity/role.entity';
 import { UserRole } from '../user-role-mapping/entity/user-role.entity';
-import { USERS_KEY } from '../../constants';
+import { table } from '../../constants';
 
 interface IUserCreationAttributes {
   email: string;
@@ -17,7 +17,7 @@ interface IUserCreationAttributes {
 }
 
 // TODO add user token validation to swagger page
-@Table({ tableName: USERS_KEY })
+@Table({ tableName: table.USERS })
 export class User extends Model<User, IUserCreationAttributes> {
   @ApiProperty({ example: '1', description: 'User unique id' })
   @Column({

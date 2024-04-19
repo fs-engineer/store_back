@@ -8,9 +8,9 @@ import {
 
 import { User } from '../../user/user.entity';
 import { Role } from '../../role/entity/role.entity';
-import { USER_ROLES_KEY } from '../../../constants';
+import { table } from '../../../constants';
 
-@Table({ tableName: USER_ROLES_KEY, createdAt: false, updatedAt: false })
+@Table({ tableName: table.USER_ROLES, createdAt: false, updatedAt: false })
 export class UserRole extends Model<UserRole> {
   @Column({
     type: DataType.INTEGER,

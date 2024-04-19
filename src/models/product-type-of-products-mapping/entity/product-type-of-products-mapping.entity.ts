@@ -7,9 +7,10 @@ import {
 } from 'sequelize-typescript';
 import { Product } from '../../product/product.entity';
 import { ProductType } from '../../product-type/entity/product-type.entity';
+import { table } from '../../../constants';
 
 @Table({
-  tableName: 'product_type_mapping',
+  tableName: table.PRODUCT_TYPE_MAPPING,
   createdAt: false,
   updatedAt: false,
 })

@@ -7,7 +7,7 @@ import {
   Table,
 } from 'sequelize-typescript';
 
-import { BRANDS_KEY } from '../../constants';
+import { table } from '../../constants';
 import { ApiProperty } from '@nestjs/swagger';
 import { Country } from '../country/country.entity';
 
@@ -16,7 +16,7 @@ interface IBrandCreationAttributes {
   countryId: number;
 }
 
-@Table({ tableName: BRANDS_KEY, createdAt: false, updatedAt: false })
+@Table({ tableName: table.BRANDS, createdAt: false, updatedAt: false })
 export class Brand extends Model<Brand, IBrandCreationAttributes> {
   @ApiProperty({ example: '1', description: 'Brand unique id' })
   @Column({
