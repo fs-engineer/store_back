@@ -14,7 +14,7 @@ import { table } from '../../../constants';
   createdAt: false,
   updatedAt: false,
 })
-export class ProductTypeOfProductsMapping extends Model<ProductTypeOfProductsMapping> {
+export class ProductProductTypeMapping extends Model<ProductProductTypeMapping> {
   @Column({
     type: DataType.INTEGER,
     unique: true,

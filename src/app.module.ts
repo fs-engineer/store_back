@@ -12,7 +12,7 @@ import { CountryModule } from './models/country/country.module';
 import { ProductTypeModule } from './models/product-type/product-type.module';
 import { HairTypeModule } from './models/hair-type/hair-type.module';
 import { UserRoleModule } from './models/user-role-mapping/user-role.module';
-import { ProductTypeOfProductsMappingModule } from './models/product-type-of-products-mapping/product-type-of-products-mapping.module';
+import { ProductProductTypeMappingModule } from './models/product-product-type-mapping/product-product-type-mapping.module';
 import { ProductHairTypeMappingModule } from './models/product-hair-type-mapping/product-hair-type-mapping.module';
 import { ProductCharacteristicModule } from './models/product-characteristic/product-characteristic.module';
 
@@ -39,7 +39,7 @@ import { ProductCharacteristicModule } from './models/product-characteristic/pro
     ProductTypeModule,
     HairTypeModule,
     UserRoleModule,
-    ProductTypeOfProductsMappingModule,
+    ProductProductTypeMappingModule,
     ProductHairTypeMappingModule,
     ProductCharacteristicModule,
   ],
