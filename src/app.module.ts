@@ -14,6 +14,7 @@ import { HairTypeModule } from './models/hair-type/hair-type.module';
 import { UserRoleModule } from './models/user-role-mapping/user-role.module';
 import { ProductTypeOfProductsMappingModule } from './models/product-type-of-products-mapping/product-type-of-products-mapping.module';
 import { ProductHairTypeMappingModule } from './models/product-hair-type-mapping/product-hair-type-mapping.module';
+import { ProductCharacteristicModule } from './models/product-characteristic/product-characteristic.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { ProductHairTypeMappingModule } from './models/product-hair-type-mapping
     UserRoleModule,
     ProductTypeOfProductsMappingModule,
     ProductHairTypeMappingModule,
+    ProductCharacteristicModule,
   ],
 })
 export class AppModule {}

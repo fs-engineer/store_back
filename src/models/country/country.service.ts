@@ -14,6 +14,7 @@ export class CountryService {
   constructor(
     @InjectModel(Country) private readonly countryModel: typeof Country,
   ) {}
+
   async getAllCountries(): Promise<Country[]> {
     return await this.countryModel.findAll();
   }

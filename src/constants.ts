@@ -36,5 +36,6 @@ export const table = {
   PRODUCTS_TYPES: 'product_types',
   HAIR_TYPE: 'hair_types',
   PRODUCT_TYPE_MAPPING: 'product_type_mapping',
-  PRODUCT_HAIR_TYPE_MAPPING: 'product-hair-type-mapping',
+  PRODUCT_HAIR_TYPE_MAPPING: 'product_hair_type_mapping',
+  PRODUCT_CHARACTERISTICS: 'product_characteristic',
 };
