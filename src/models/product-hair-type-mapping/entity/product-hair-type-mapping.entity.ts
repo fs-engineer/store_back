@@ -10,7 +10,7 @@ import { HairType } from '../../hair-type/entity/hair-type.entity';
 import { table } from '../../../constants';
 
 @Table({
-  tableName: table.PRODUCT_HAIR_TYPE_MAPPING,
+  tableName: table.PRODUCT_HAIR_TYPES_MAPPING,
   createdAt: false,
   updatedAt: false,
 })

@@ -6,6 +6,8 @@ import { Product } from './product.entity';
 import { Brand } from '../brand/brand.entity';
 import { Country } from '../country/country.entity';
 import { ProductType } from '../product-type/entity/product-type.entity';
+import { HAIR_TYPES_KEY, PRODUCT_TYPES_KEY } from '../../constants';
+import { HairType } from '../hair-type/entity/hair-type.entity';
 
 @Injectable()
 export class ProductService {
@@ -18,7 +20,11 @@ export class ProductService {
       createProductDto.productTypes &&
       createProductDto.productTypes.length > 0
     ) {
-      await product.$add('productTypes', createProductDto.productTypes);
+      await product.$add(PRODUCT_TYPES_KEY, createProductDto.productTypes);
+    }
+
+    if (createProductDto.hairTypes && createProductDto.hairTypes.length > 0) {
+      await product.$add(HAIR_TYPES_KEY, createProductDto.hairTypes);
     }
 
     return product;
@@ -33,7 +39,12 @@ export class ProductService {
         },
         {
           model: ProductType,
-          attributes: ['name'],
+          attributes: ['id', 'name'],
+          through: { attributes: [] },
+        },
+        {
+          model: HairType,
+          attributes: ['id', 'name'],
           through: { attributes: [] },
         },
       ],
