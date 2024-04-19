@@ -10,7 +10,7 @@ import { ProductType } from '../../product-type/entity/product-type.entity';
 import { table } from '../../../constants';
 
 @Table({
-  tableName: table.PRODUCT_TYPE_MAPPING,
+  tableName: table.PRODUCT_TYPES_MAPPING,
   createdAt: false,
   updatedAt: false,
 })
