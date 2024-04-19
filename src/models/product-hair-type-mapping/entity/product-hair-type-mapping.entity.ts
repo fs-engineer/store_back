@@ -6,14 +6,14 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { Product } from '../../product/product.entity';
-import { ProductType } from './product-type.entity';
+import { HairType } from '../../hair-type/entity/hair-type.entity';
 
 @Table({
-  tableName: 'product_type_mapping',
+  tableName: 'product-hair-type-mapping',
   createdAt: false,
   updatedAt: false,
 })
-export class ProductTypeMapping extends Model<ProductTypeMapping> {
+export class ProductHairTypeMapping extends Model {
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -26,7 +26,7 @@ export class ProductTypeMapping extends Model<ProductTypeMapping> {
   @Column({ type: DataType.INTEGER })
   productId: number;
 
-  @ForeignKey(() => ProductType)
+  @ForeignKey(() => HairType)
   @Column({ type: DataType.INTEGER })
-  productTypeId: number;
+  hairTypeId: number;
 }

@@ -8,7 +8,7 @@ import {
 import { PRODUCT_TYPE_KEY } from '../../../constants';
 import { ApiProperty } from '@nestjs/swagger';
 import { Product } from '../../product/product.entity';
-import { ProductTypeMapping } from './product-type-mapping.entity';
+import { ProductTypeOfProductsMapping } from '../../product-type-of-products-mapping/entity/product-type-of-products-mapping.entity';
 
 interface IProductsCreationAttributes {
   name: string;
@@ -32,6 +32,6 @@ export class ProductType extends Model<
   @Column({ type: DataType.STRING, unique: true })
   name: string;
 
-  @BelongsToMany(() => Product, () => ProductTypeMapping)
+  @BelongsToMany(() => Product, () => ProductTypeOfProductsMapping)
   products: Product[];
 }

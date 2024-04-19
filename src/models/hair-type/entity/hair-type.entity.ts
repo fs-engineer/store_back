@@ -8,7 +8,7 @@ import {
 import { HAIR_TYPE_KEY } from '../../../constants';
 import { ApiProperty } from '@nestjs/swagger';
 import { Product } from '../../product/product.entity';
-import { ProductHairTypeMapping } from './product-hair-type-mapping.entity';
+import { ProductHairTypeMapping } from '../../product-hair-type-mapping/entity/product-hair-type-mapping.entity';
 
 interface IHairTypeCreationAttributes {
   name: string;

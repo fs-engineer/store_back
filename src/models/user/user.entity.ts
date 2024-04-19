@@ -8,7 +8,7 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 
 import { Role } from '../role/entity/role.entity';
-import { UserRole } from '../role/entity/user-role.entity';
+import { UserRole } from '../user-role-mapping/entity/user-role.entity';
 import { USERS_KEY } from '../../constants';
 
 interface IUserCreationAttributes {

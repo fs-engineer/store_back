@@ -10,10 +10,10 @@ import {
 import { PRODUCTS_KEY } from '../../constants';
 import { ApiProperty } from '@nestjs/swagger';
 import { Brand } from '../brand/brand.entity';
-import { ProductTypeMapping } from '../product-type/entity/product-type-mapping.entity';
+import { ProductTypeOfProductsMapping } from '../product-type-of-products-mapping/entity/product-type-of-products-mapping.entity';
 import { ProductType } from '../product-type/entity/product-type.entity';
 import { HairType } from '../hair-type/entity/hair-type.entity';
-import { ProductHairTypeMapping } from '../hair-type/entity/product-hair-type-mapping.entity';
+import { ProductHairTypeMapping } from '../product-hair-type-mapping/entity/product-hair-type-mapping.entity';
 
 interface IProductCreationAttributes {
   name: string;
@@ -96,7 +96,7 @@ export class Product extends Model<Product, IProductCreationAttributes> {
   @BelongsTo(() => Brand, { foreignKey: 'brandId' })
   brand: Brand;
 
-  @BelongsToMany(() => ProductType, () => ProductTypeMapping)
+  @BelongsToMany(() => ProductType, () => ProductTypeOfProductsMapping)
   productTypes: ProductType[];
 
   @BelongsToMany(() => HairType, () => ProductHairTypeMapping)

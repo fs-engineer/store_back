@@ -11,9 +11,9 @@ import { BrandModule } from './models/brand/brand.module';
 import { CountryModule } from './models/country/country.module';
 import { ProductTypeModule } from './models/product-type/product-type.module';
 import { HairTypeModule } from './models/hair-type/hair-type.module';
-import { UserRole } from './models/role/entity/user-role.entity';
-import { ProductTypeMapping } from './models/product-type/entity/product-type-mapping.entity';
-import { ProductHairTypeMapping } from './models/hair-type/entity/product-hair-type-mapping.entity';
+import { UserRoleModule } from './models/user-role-mapping/user-role.module';
+import { ProductTypeOfProductsMappingModule } from './models/product-type-of-products-mapping/product-type-of-products-mapping.module';
+import { ProductHairTypeMappingModule } from './models/product-hair-type-mapping/product-hair-type-mapping.module';
 
 @Module({
   imports: [
@@ -27,7 +27,6 @@ import { ProductHairTypeMapping } from './models/hair-type/entity/product-hair-t
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      models: [UserRole, ProductTypeMapping, ProductHairTypeMapping],
       autoLoadModels: true,
     }),
     UserModule,
@@ -38,6 +37,9 @@ import { ProductHairTypeMapping } from './models/hair-type/entity/product-hair-t
     CountryModule,
     ProductTypeModule,
     HairTypeModule,
+    UserRoleModule,
+    ProductTypeOfProductsMappingModule,
+    ProductHairTypeMappingModule,
   ],
 })
 export class AppModule {}
