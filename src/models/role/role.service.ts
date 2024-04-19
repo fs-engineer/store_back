@@ -9,7 +9,11 @@ export class RoleService {
   constructor(@InjectModel(Role) private roleModel: typeof Role) {}
 
   async createRole(roleDto: CreateRoleDto) {
-    return await this.roleModel.create(roleDto);
+    const { name } = roleDto;
+    return await this.roleModel.create({
+      ...roleDto,
+      name: name.toUpperCase(),
+    } as Role);
   }
 
   async getRoleByName(name: string) {
