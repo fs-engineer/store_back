@@ -6,7 +6,7 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { Product } from '../../product/product.entity';
-import { ProductType } from '../../product-type/entity/product-type.entity';
+import { Type } from '../../type/entity/type.entity';
 import { table } from '../../../constants';
 
 @Table({
@@ -14,7 +14,7 @@ import { table } from '../../../constants';
   createdAt: false,
   updatedAt: false,
 })
-export class ProductProductTypeMapping extends Model<ProductProductTypeMapping> {
+export class ProductTypeMapping extends Model<ProductTypeMapping> {
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -27,7 +27,7 @@ export class ProductProductTypeMapping extends Model<ProductProductTypeMapping> 
   @Column({ type: DataType.INTEGER })
   productId: number;
 
-  @ForeignKey(() => ProductType)
+  @ForeignKey(() => Type)
   @Column({ type: DataType.INTEGER })
-  productTypeId: number;
+  typeId: number;
 }

@@ -20,11 +20,14 @@ export const COUNTRIES_KEY = 'countries';
 // BRANDS
 export const BRANDS_KEY = 'brands';
 
-// PRODUCT-TYPE
-export const PRODUCT_TYPES_KEY = 'productTypes';
+// TYPE
+export const TYPES_KEY = 'types';
 
 // HAIR-TYPE
 export const HAIR_TYPES_KEY = 'hairTypes';
+
+// CHARACTERISTICS
+export const CHARACTERISTICS_KEY = 'characteristics';
 
 export const table = {
   ROLES: 'roles',
@@ -33,9 +36,10 @@ export const table = {
   PRODUCTS: 'products',
   COUNTRIES: 'countries',
   BRANDS: 'brands',
-  PRODUCTS_TYPES: 'product_types',
+  TYPES: 'types',
   HAIR_TYPE: 'hair_types',
-  PRODUCT_TYPES_MAPPING: 'product_product_types_mapping',
-  PRODUCT_HAIR_TYPES_MAPPING: 'product_hair_type_mapping',
-  PRODUCT_CHARACTERISTICS: 'product_characteristic',
+  PRODUCT_TYPES_MAPPING: 'product_types_mapping',
+  PRODUCT_HAIR_TYPES_MAPPING: 'product_hair_types_mapping',
+  CHARACTERISTICS: 'characteristics',
+  PRODUCT_CHARACTERISTICS_MAPPING: 'product_characteristics_mapping',
 };

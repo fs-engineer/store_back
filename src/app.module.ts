@@ -9,12 +9,13 @@ import { AuthModule } from './models/auth/auth.module';
 import { ProductModule } from './models/product/product.module';
 import { BrandModule } from './models/brand/brand.module';
 import { CountryModule } from './models/country/country.module';
-import { ProductTypeModule } from './models/product-type/product-type.module';
+import { TypeModule } from './models/type/type.module';
 import { HairTypeModule } from './models/hair-type/hair-type.module';
 import { UserRoleModule } from './models/user-role-mapping/user-role.module';
-import { ProductProductTypeMappingModule } from './models/product-product-type-mapping/product-product-type-mapping.module';
+import { ProductTypeMappingModule } from './models/product-type-mapping/product-type-mapping.module';
 import { ProductHairTypeMappingModule } from './models/product-hair-type-mapping/product-hair-type-mapping.module';
-import { ProductCharacteristicModule } from './models/product-characteristic/product-characteristic.module';
+import { CharacteristicModule } from './models/characteristic/characteristic.module';
+import { ProductCharacteristicMappingModule } from './models/product-characteristic-mapping/product-characteristic-mapping.module';
 
 @Module({
   imports: [
@@ -36,12 +37,13 @@ import { ProductCharacteristicModule } from './models/product-characteristic/pro
     ProductModule,
     BrandModule,
     CountryModule,
-    ProductTypeModule,
+    TypeModule,
     HairTypeModule,
     UserRoleModule,
-    ProductProductTypeMappingModule,
+    ProductTypeMappingModule,
     ProductHairTypeMappingModule,
-    ProductCharacteristicModule,
+    CharacteristicModule,
+    ProductCharacteristicMappingModule,
   ],
 })
 export class AppModule {}

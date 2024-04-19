@@ -10,10 +10,12 @@ import {
 import { table } from '../../constants';
 import { ApiProperty } from '@nestjs/swagger';
 import { Brand } from '../brand/brand.entity';
-import { ProductProductTypeMapping } from '../product-product-type-mapping/entity/product-product-type-mapping';
-import { ProductType } from '../product-type/entity/product-type.entity';
+import { ProductTypeMapping } from '../product-type-mapping/entity/product-type-mapping';
+import { Type } from '../type/entity/type.entity';
 import { HairType } from '../hair-type/entity/hair-type.entity';
 import { ProductHairTypeMapping } from '../product-hair-type-mapping/entity/product-hair-type-mapping.entity';
+import { Characteristic } from '../characteristic/entity/characteristic.entity';
+import { ProductCharacteristicMapping } from '../product-characteristic-mapping/entity/product-characteristic-mapping.entity';
 
 interface IProductCreationAttributes {
   name: string;
@@ -96,9 +98,12 @@ export class Product extends Model<Product, IProductCreationAttributes> {
   @BelongsTo(() => Brand, { foreignKey: 'brandId' })
   brand: Brand;
 
-  @BelongsToMany(() => ProductType, () => ProductProductTypeMapping)
-  productTypes: ProductType[];
+  @BelongsToMany(() => Type, () => ProductTypeMapping)
+  types: Type[];
 
   @BelongsToMany(() => HairType, () => ProductHairTypeMapping)
   hairTypes: HairType[];
+
+  @BelongsToMany(() => Characteristic, () => ProductCharacteristicMapping)
+  characteristics: Characteristic[];
 }

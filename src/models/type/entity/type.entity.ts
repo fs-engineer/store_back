@@ -8,17 +8,14 @@ import {
 import { table } from '../../../constants';
 import { ApiProperty } from '@nestjs/swagger';
 import { Product } from '../../product/product.entity';
-import { ProductProductTypeMapping } from '../../product-product-type-mapping/entity/product-product-type-mapping';
+import { ProductTypeMapping } from '../../product-type-mapping/entity/product-type-mapping';
 
-interface IProductsCreationAttributes {
+interface ITypeCreationAttributes {
   name: string;
 }
 
-@Table({ tableName: table.PRODUCTS_TYPES })
-export class ProductType extends Model<
-  ProductType,
-  IProductsCreationAttributes
-> {
+@Table({ tableName: table.TYPES })
+export class Type extends Model<Type, ITypeCreationAttributes> {
   @ApiProperty({ example: '1', description: 'Brand unique id' })
   @Column({
     type: DataType.INTEGER,
@@ -32,6 +29,6 @@ export class ProductType extends Model<
   @Column({ type: DataType.STRING, unique: true })
   name: string;
 
-  @BelongsToMany(() => Product, () => ProductProductTypeMapping)
+  @BelongsToMany(() => Product, () => ProductTypeMapping)
   products: Product[];
 }
