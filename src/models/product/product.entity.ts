@@ -16,6 +16,7 @@ import { HairType } from '../hair-type/entity/hair-type.entity';
 import { ProductHairTypeMapping } from '../product-hair-type-mapping/entity/product-hair-type-mapping.entity';
 import { Characteristic } from '../characteristic/entity/characteristic.entity';
 import { ProductCharacteristicMapping } from '../product-characteristic-mapping/entity/product-characteristic-mapping.entity';
+import { Basket } from '../basket/entity/basket.entity';
 
 interface IProductCreationAttributes {
   name: string;
@@ -106,4 +107,7 @@ export class Product extends Model<Product, IProductCreationAttributes> {
 
   @BelongsToMany(() => Characteristic, () => ProductCharacteristicMapping)
   characteristics: Characteristic[];
+
+  @BelongsToMany(() => Product, () => Basket)
+  products: Product[];
 }

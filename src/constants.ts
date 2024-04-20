@@ -2,6 +2,7 @@
 export const roles = {
   ADMIN: 'ADMIN',
   USER: 'USER',
+  GUEST: 'GUEST',
 };
 export const ROLES_KEY = 'roles';
 
@@ -42,4 +43,5 @@ export const table = {
   PRODUCT_HAIR_TYPES_MAPPING: 'product_hair_types_mapping',
   CHARACTERISTICS: 'characteristics',
   PRODUCT_CHARACTERISTICS_MAPPING: 'product_characteristics_mapping',
+  BASKETS: 'baskets',
 };
