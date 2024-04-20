@@ -7,6 +7,7 @@ import { Product } from '../product/product.entity';
 import { Country } from '../country/country.entity';
 import { Brand } from '../brand/brand.entity';
 import { sanitizeBasketCalcSumAndTotal } from './helpers/sanitizeBasketAndCalcSum';
+import { IBasketResponse } from './basket.interface';
 
 @Injectable()
 export class BasketService {
@@ -18,11 +19,11 @@ export class BasketService {
     return await this.basketModel.findAll();
   }
 
-  async createBasket(basketDto: CreateBasketDto): Promise<Basket> {
+  async createBasketByUserId(basketDto: CreateBasketDto): Promise<Basket> {
     return await this.basketModel.create(basketDto);
   }
 
-  async getBasketByUserId(userId: number) {
+  async getBasketByUserId(userId: number): Promise<IBasketResponse> {
     const baskets: Basket[] = await this.basketModel.findAll({
       where: { userId },
       include: [

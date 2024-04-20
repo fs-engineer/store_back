@@ -53,8 +53,6 @@ export class User extends Model<User, IUserCreationAttributes> {
   birthDate: Date;
 
   // TODO need to add a basket
-  // @Column({ type: DataType.INTEGER, allowNull: false })
-  // basketId: number;
 
   @BelongsToMany(() => Role, () => UserRole)
   roles: Role[];

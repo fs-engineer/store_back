@@ -15,6 +15,7 @@ import { roles } from '../../constants';
 import { RolesGuard } from '../../guards/roles.guard';
 import { User } from '../user/user.entity';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { IBasketResponse } from './basket.interface';
 
 interface IAuthRequest extends Request {
   user: User;
@@ -27,20 +28,33 @@ export class BasketController {
 
   @ApiOperation({ summary: 'Get all baskets' })
   @ApiResponse({ status: HttpStatus.OK, type: [Basket] })
+  @Roles([roles.ADMIN])
+  @UseGuards(RolesGuard)
   @Get()
   getAll(): Promise<Basket[]> {
     return this.basketService.getAllBaskets();
   }
 
+  @ApiOperation({
+    summary: 'Add basket "put some product to the basket" for logged on users',
+  })
+  @ApiResponse({ status: HttpStatus.CREATED, type: Basket })
+  @Roles([roles.ADMIN, roles.USER])
+  @UseGuards(RolesGuard)
   @Post()
-  create(@Body() basketDto: CreateBasketDto): Promise<Basket> {
-    return this.basketService.createBasket(basketDto);
+  createForAuthUsers(@Body() basketDto: CreateBasketDto): Promise<Basket> {
+    return this.basketService.createBasketByUserId(basketDto);
   }
 
-  @Roles([roles.ADMIN, roles.USER, roles.GUEST])
+  @ApiOperation({ summary: "Get user's basket" })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: [Basket],
+  })
+  @Roles([roles.ADMIN, roles.USER])
   @UseGuards(RolesGuard)
   @Get('/user-basket')
-  getBasketByUserId(@Req() req: IAuthRequest) {
+  getBasketForAuthUsers(@Req() req: IAuthRequest): Promise<IBasketResponse> {
     const id: number = req.user.id;
     return this.basketService.getBasketByUserId(id);
   }

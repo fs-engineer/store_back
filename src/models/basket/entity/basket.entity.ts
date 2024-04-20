@@ -29,6 +29,7 @@ export class Basket extends Model<Basket, IBasketCreationAttributes> {
   })
   id: number;
 
+  @ApiProperty({ example: '1', description: 'User id' })
   @ForeignKey(() => User)
   @Column
   userId: number;
@@ -36,6 +37,7 @@ export class Basket extends Model<Basket, IBasketCreationAttributes> {
   @BelongsTo(() => User)
   user: User;
 
+  @ApiProperty({ example: '1', description: 'Product id' })
   @ForeignKey(() => Product)
   @Column
   productId: number;
@@ -43,9 +45,11 @@ export class Basket extends Model<Basket, IBasketCreationAttributes> {
   @BelongsTo(() => Product)
   product: Product;
 
+  @ApiProperty({ example: '5', description: 'Total number of products' })
   @Column({ type: DataType.INTEGER })
   quantity: number;
 
+  @ApiProperty({ example: 'adfasdfsadfsad3243', description: 'Session id' })
   @Column({ type: DataType.STRING })
   sessionId: string;
 }
