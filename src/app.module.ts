@@ -3,20 +3,20 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
 import * as process from 'node:process';
 
-import { UserModule } from './models/user/user.module';
-import { RoleModule } from './models/role/role.module';
-import { AuthModule } from './models/auth/auth.module';
-import { ProductModule } from './models/product/product.module';
-import { BrandModule } from './models/brand/brand.module';
-import { CountryModule } from './models/country/country.module';
-import { TypeModule } from './models/type/type.module';
-import { HairTypeModule } from './models/hair-type/hair-type.module';
-import { UserRoleModule } from './models/user-role-mapping/user-role.module';
-import { ProductTypeMappingModule } from './models/product-type-mapping/product-type-mapping.module';
-import { ProductHairTypeMappingModule } from './models/product-hair-type-mapping/product-hair-type-mapping.module';
-import { CharacteristicModule } from './models/characteristic/characteristic.module';
-import { ProductCharacteristicMappingModule } from './models/product-characteristic-mapping/product-characteristic-mapping.module';
-import { BasketModule } from './models/basket/basket.module';
+import { UserModule } from './modules/user/user.module';
+import { RoleModule } from './modules/role/role.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { ProductModule } from './modules/product/product.module';
+import { BrandModule } from './modules/brand/brand.module';
+import { CountryModule } from './modules/country/country.module';
+import { TypeModule } from './modules/type/type.module';
+import { HairTypeModule } from './modules/hair-type/hair-type.module';
+import { UserRoleModule } from './modules/user-role-mapping/user-role.module';
+import { ProductTypeMappingModule } from './modules/product-type-mapping/product-type-mapping.module';
+import { ProductHairTypeMappingModule } from './modules/product-hair-type-mapping/product-hair-type-mapping.module';
+import { CharacteristicModule } from './modules/characteristic/characteristic.module';
+import { ProductCharacteristicMappingModule } from './modules/product-characteristic-mapping/product-characteristic-mapping.module';
+import { BasketModule } from './modules/basket/basket.module';
 
 @Module({
   imports: [

@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { Reflector } from '@nestjs/core';
 
 import { ROLES_KEY } from '../constants';
-import { Role } from '../models/role/entity/role.entity';
+import { Role } from '../modules/role/entity/role.entity';
 
 // Roles Guard for endpoints
 @Injectable()
