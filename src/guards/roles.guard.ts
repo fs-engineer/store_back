@@ -1,9 +1,4 @@
-import {
-  CanActivate,
-  ExecutionContext,
-  ForbiddenException,
-  Injectable,
-} from '@nestjs/common';
+import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Observable } from 'rxjs';
 import { Reflector } from '@nestjs/core';
@@ -19,15 +14,10 @@ export class RolesGuard implements CanActivate {
     private reflector: Reflector,
   ) {}
 
-  canActivate(
-    context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
+  canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
     try {
       const requiredRoles =
-        this.reflector.getAllAndOverride<string[]>(ROLES_KEY, [
-          context.getHandler(),
-          context.getClass(),
-        ]) || [];
+        this.reflector.getAllAndOverride<string[]>(ROLES_KEY, [context.getHandler(), context.getClass()]) || [];
       // TODO need add token save and compare
       const req = context.switchToHttp().getRequest();
       const authHeader = req.headers['authorization'];
@@ -40,10 +30,7 @@ export class RolesGuard implements CanActivate {
       const user = this.jwtService.verify(token);
       req.user = user;
 
-      return (
-        user?.roles &&
-        user.roles.some((role: Role) => requiredRoles.includes(role?.name))
-      );
+      return user?.roles && user.roles.some((role: Role) => requiredRoles.includes(role?.name));
     } catch (e) {
       throw new ForbiddenException();
     }
