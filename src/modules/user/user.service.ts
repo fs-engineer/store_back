@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 
 import { User } from './user.entity';
@@ -53,6 +49,7 @@ export class UserService {
       include: {
         model: Role,
         attributes: ['name', 'description'],
+        through: { attributes: [] },
       },
     });
   }
