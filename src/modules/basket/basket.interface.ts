@@ -15,3 +15,8 @@ export interface IBasketResponse {
   productsQuantity: number;
   items: IBasketSanitized[];
 }
+
+export interface IBasketDeleteResponse {
+  items: number;
+  message: string;
+}

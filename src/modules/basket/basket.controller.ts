@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpStatus,
-  Post,
-  Req,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { BasketService } from './basket.service';
 import { Basket } from './entity/basket.entity';
 import { CreateBasketDto } from './dto/create-basket.dto';
@@ -15,11 +7,9 @@ import { roles } from '../../constants';
 import { RolesGuard } from '../../guards/roles.guard';
 import { User } from '../user/user.entity';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { IBasketResponse } from './basket.interface';
-
-interface IAuthRequest extends Request {
-  user: User;
-}
+import { IBasketDeleteResponse, IBasketResponse } from './basket.interface';
+import { IAuthRequest } from '../../interfaces/user.interface';
+import { getUserFromReq } from '../../helpers/requests/getUserFromReq';
 
 @ApiTags('Baskets')
 @Controller('baskets')
@@ -42,8 +32,10 @@ export class BasketController {
   @Roles([roles.ADMIN, roles.USER])
   @UseGuards(RolesGuard)
   @Post()
-  createForAuthUsers(@Body() basketDto: CreateBasketDto): Promise<Basket> {
-    return this.basketService.createBasketByUserId(basketDto);
+  createForAuthUsers(@Body() basketDto: CreateBasketDto, @Req() req: IAuthRequest): Promise<Basket> {
+    const user: User = getUserFromReq(req);
+    const id: number = user.id;
+    return this.basketService.createBasketByUserId(basketDto, id);
   }
 
   @ApiOperation({ summary: "Get user's basket" })
@@ -54,8 +46,34 @@ export class BasketController {
   @Roles([roles.ADMIN, roles.USER])
   @UseGuards(RolesGuard)
   @Get('/user-basket')
-  getBasketForAuthUsers(@Req() req: IAuthRequest): Promise<IBasketResponse> {
-    const id: number = req.user.id;
+  getBasketAuthUsers(@Req() req: IAuthRequest): Promise<IBasketResponse> {
+    const user: User = getUserFromReq(req);
+    const id: number = user.id;
     return this.basketService.getBasketByUserId(id);
+  }
+
+  @ApiOperation({ summary: 'Delete basket by userId' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: String,
+  })
+  @Roles([roles.ADMIN, roles.USER])
+  @UseGuards(RolesGuard)
+  @Delete('/user-basket/delete')
+  deleteBasketByUserId(@Req() req: IAuthRequest): Promise<IBasketDeleteResponse> {
+    const user: User = getUserFromReq(req);
+    return this.basketService.deleteBasketByAuthUserId(user.id);
+  }
+
+  @ApiOperation({ summary: 'Delete product from the user basket by id' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: String,
+  })
+  @Roles([roles.ADMIN, roles.USER])
+  @UseGuards(RolesGuard)
+  @Delete('/user-basket/:id')
+  deleteProductById(@Param('id') id: number): Promise<IBasketDeleteResponse> {
+    return this.basketService.deleteProductByIdAuthUsers(id);
   }
 }
