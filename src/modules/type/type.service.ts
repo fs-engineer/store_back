@@ -6,13 +6,13 @@ import { CreateTypeDto } from './dto/create-type.dto';
 
 @Injectable()
 export class TypeService {
-  constructor(@InjectModel(Type) private productTypeModel: typeof Type) {}
+    constructor(@InjectModel(Type) private productTypeModel: typeof Type) {}
 
-  async createProductType(productTypeDto: CreateTypeDto): Promise<Type> {
-    return await this.productTypeModel.create(productTypeDto);
-  }
+    async createProductType(productTypeDto: CreateTypeDto): Promise<Type> {
+        return await this.productTypeModel.create(productTypeDto);
+    }
 
-  async getAllProductTypes(): Promise<Type[]> {
-    return await this.productTypeModel.findAll();
-  }
+    async getAllProductTypes(): Promise<Type[]> {
+        return await this.productTypeModel.findAll();
+    }
 }

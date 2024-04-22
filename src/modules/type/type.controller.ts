@@ -8,15 +8,15 @@ import { ApiTags } from '@nestjs/swagger';
 @ApiTags('ProductTypes')
 @Controller('product-types')
 export class TypeController {
-  constructor(private productTypeService: TypeService) {}
+    constructor(private productTypeService: TypeService) {}
 
-  @Post()
-  create(@Body() typeDto: CreateTypeDto): Promise<Type> {
-    return this.productTypeService.createProductType(typeDto);
-  }
+    @Post()
+    create(@Body() typeDto: CreateTypeDto): Promise<Type> {
+        return this.productTypeService.createProductType(typeDto);
+    }
 
-  @Get()
-  getAll(): Promise<Type[]> {
-    return this.productTypeService.getAllProductTypes();
-  }
+    @Get()
+    getAll(): Promise<Type[]> {
+        return this.productTypeService.getAllProductTypes();
+    }
 }

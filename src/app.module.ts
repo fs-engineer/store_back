@@ -15,37 +15,38 @@ import { UserRoleModule } from './modules/user-role-mapping/user-role.module';
 import { ProductTypeMappingModule } from './modules/product-type-mapping/product-type-mapping.module';
 import { ProductHairTypeMappingModule } from './modules/product-hair-type-mapping/product-hair-type-mapping.module';
 import { CharacteristicModule } from './modules/characteristic/characteristic.module';
+// eslint-disable-next-line max-len
 import { ProductCharacteristicMappingModule } from './modules/product-characteristic-mapping/product-characteristic-mapping.module';
 import { BasketModule } from './modules/basket/basket.module';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      envFilePath: `.env.${process.env.NODE_ENV || 'development'}`,
-    }),
-    SequelizeModule.forRoot({
-      dialect: 'postgres',
-      host: process.env.DB_HOST,
-      port: Number(process.env.DB_PORT),
-      username: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-      autoLoadModels: true,
-    }),
-    UserModule,
-    RoleModule,
-    AuthModule,
-    ProductModule,
-    BrandModule,
-    CountryModule,
-    TypeModule,
-    HairTypeModule,
-    UserRoleModule,
-    ProductTypeMappingModule,
-    ProductHairTypeMappingModule,
-    CharacteristicModule,
-    ProductCharacteristicMappingModule,
-    BasketModule,
-  ],
+    imports: [
+        ConfigModule.forRoot({
+            envFilePath: `.env.${process.env.NODE_ENV || 'development'}`,
+        }),
+        SequelizeModule.forRoot({
+            dialect: 'postgres',
+            host: process.env.DB_HOST,
+            port: Number(process.env.DB_PORT),
+            username: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
+            database: process.env.DB_NAME,
+            autoLoadModels: true,
+        }),
+        UserModule,
+        RoleModule,
+        AuthModule,
+        ProductModule,
+        BrandModule,
+        CountryModule,
+        TypeModule,
+        HairTypeModule,
+        UserRoleModule,
+        ProductTypeMappingModule,
+        ProductHairTypeMappingModule,
+        CharacteristicModule,
+        ProductCharacteristicMappingModule,
+        BasketModule,
+    ],
 })
 export class AppModule {}

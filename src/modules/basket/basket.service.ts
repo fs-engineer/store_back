@@ -11,63 +11,63 @@ import { IBasketDeleteResponse, IBasketResponse } from './basket.interface';
 
 @Injectable()
 export class BasketService {
-  constructor(@InjectModel(Basket) private readonly basketModel: typeof Basket) {}
+    constructor(@InjectModel(Basket) private readonly basketModel: typeof Basket) {}
 
-  async getAllBaskets(): Promise<Basket[]> {
-    return await this.basketModel.findAll();
-  }
-
-  async createBasketByUserId(basketDto: CreateBasketDto, userId: number): Promise<Basket> {
-    return await this.basketModel.create({ ...basketDto, userId });
-  }
-
-  async getBasketByUserId(userId: number): Promise<IBasketResponse> {
-    const baskets: Basket[] = await this.basketModel.findAll({
-      where: { userId },
-      include: [
-        {
-          model: Product,
-          include: [
-            {
-              model: Brand,
-              include: [Country],
-            },
-          ],
-        },
-      ],
-    });
-
-    if (baskets && baskets.length === 0) {
-      throw new NotFoundException();
+    async getAllBaskets(): Promise<Basket[]> {
+        return await this.basketModel.findAll();
     }
 
-    return sanitizeBasketCalcSumAndTotal(baskets);
-  }
-
-  async deleteBasketByAuthUserId(userId: number): Promise<IBasketDeleteResponse> {
-    const items: number = await this.basketModel.destroy({
-      where: { userId },
-    });
-
-    if (items === 0) {
-      throw new NotFoundException();
+    async createBasketByUserId(basketDto: CreateBasketDto, userId: number): Promise<Basket> {
+        return await this.basketModel.create({ ...basketDto, userId });
     }
 
-    return {
-      items,
-      message: `The basket for user ID: ${userId} has been removed`,
-    };
-  }
+    async getBasketByUserId(userId: number): Promise<IBasketResponse> {
+        const baskets: Basket[] = await this.basketModel.findAll({
+            where: { userId },
+            include: [
+                {
+                    model: Product,
+                    include: [
+                        {
+                            model: Brand,
+                            include: [Country],
+                        },
+                    ],
+                },
+            ],
+        });
 
-  async deleteProductByIdAuthUsers(id: number): Promise<IBasketDeleteResponse> {
-    const items: number = await this.basketModel.destroy({ where: { id } });
-    if (items === 0) {
-      throw new NotFoundException();
+        if (baskets && baskets.length === 0) {
+            throw new NotFoundException();
+        }
+
+        return sanitizeBasketCalcSumAndTotal(baskets);
     }
 
-    return {
-      items,
-      message: `The product with ID: ${id} has been removed`,
-    };
-  }
+    async deleteBasketByAuthUserId(userId: number): Promise<IBasketDeleteResponse> {
+        const items: number = await this.basketModel.destroy({
+            where: { userId },
+        });
+
+        if (items === 0) {
+            throw new NotFoundException();
+        }
+
+        return {
+            items,
+            message: `The basket for user ID: ${userId} has been removed`,
+        };
+    }
+
+    async deleteProductByIdAuthUsers(id: number): Promise<IBasketDeleteResponse> {
+        const items: number = await this.basketModel.destroy({ where: { id } });
+        if (items === 0) {
+            throw new NotFoundException();
+        }
+
+        return {
+            items,
+            message: `The product with ID: ${id} has been removed`,
+        };
+    }
 }
