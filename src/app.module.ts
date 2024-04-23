@@ -22,7 +22,7 @@ import { BasketModule } from './modules/basket/basket.module';
 @Module({
     imports: [
         ConfigModule.forRoot({
-            envFilePath: `.env.${process.env.NODE_ENV || 'development'}`,
+            envFilePath: process.env.NODE_ENV === 'development' ? '.env.development' : '.env',
         }),
         SequelizeModule.forRoot({
             dialect: 'postgres',
