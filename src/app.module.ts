@@ -35,9 +35,9 @@ import { BasketModule } from './modules/basket/basket.module';
             dialectOptions: {
                 ssl: {
                     require: true,
-                    rejectUnauthorized: false // Установите в false, если вы не хотите проверять SSL-сертификат
-                }
-            }
+                    rejectUnauthorized: false, // Установите в false, если вы не хотите проверять SSL-сертификат
+                },
+            },
         }),
         UserModule,
         RoleModule,
