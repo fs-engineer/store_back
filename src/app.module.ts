@@ -32,6 +32,12 @@ import { BasketModule } from './modules/basket/basket.module';
             password: process.env.DB_PASSWORD,
             database: process.env.DB_NAME,
             autoLoadModels: true,
+            dialectOptions: {
+                ssl: {
+                    require: true,
+                    rejectUnauthorized: false // Установите в false, если вы не хотите проверять SSL-сертификат
+                }
+            }
         }),
         UserModule,
         RoleModule,
