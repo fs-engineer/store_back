@@ -47,6 +47,13 @@ const sequelizeConfig = (): SequelizeModuleOptions => {
     return config;
 };
 
+const prometheusConfig = {
+    path: '/metrics',
+    defaultMetrics: {
+        enabled: true,
+    },
+};
+
 @Module({
     providers: [
         {
@@ -59,7 +66,7 @@ const sequelizeConfig = (): SequelizeModuleOptions => {
             envFilePath: process.env.NODE_ENV === 'development' ? '.env.development' : '.env',
         }),
         SequelizeModule.forRoot(sequelizeConfig()),
-        PrometheusModule.register(),
+        PrometheusModule.register(prometheusConfig),
         UserModule,
         RoleModule,
         AuthModule,
