@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
-import { SequelizeModule } from '@nestjs/sequelize';
+import { SequelizeModule, SequelizeModuleOptions } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
+import { Dialect } from 'sequelize';
 import * as process from 'node:process';
 
 import { UserModule } from './modules/user/user.module';
@@ -19,26 +20,36 @@ import { CharacteristicModule } from './modules/characteristic/characteristic.mo
 import { ProductCharacteristicMappingModule } from './modules/product-characteristic-mapping/product-characteristic-mapping.module';
 import { BasketModule } from './modules/basket/basket.module';
 
+const sequelizeConfig = (): SequelizeModuleOptions => {
+    const config = {
+        dialect: 'postgres' as Dialect,
+        host: process.env.DB_HOST,
+        port: Number(process.env.DB_PORT),
+        username: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
+        autoLoadModels: true,
+        dialectOptions: {},
+    };
+
+    if (process.env.NODE_ENV !== 'development') {
+        config.dialectOptions = {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false, // Установите в false, если вы не хотите проверять SSL-сертификат
+            },
+        };
+    }
+
+    return config;
+};
+
 @Module({
     imports: [
         ConfigModule.forRoot({
             envFilePath: process.env.NODE_ENV === 'development' ? '.env.development' : '.env',
         }),
-        SequelizeModule.forRoot({
-            dialect: 'postgres',
-            host: process.env.DB_HOST,
-            port: Number(process.env.DB_PORT),
-            username: process.env.DB_USER,
-            password: process.env.DB_PASSWORD,
-            database: process.env.DB_NAME,
-            autoLoadModels: true,
-            dialectOptions: {
-                ssl: {
-                    require: true,
-                    rejectUnauthorized: false, // Установите в false, если вы не хотите проверять SSL-сертификат
-                },
-            },
-        }),
+        SequelizeModule.forRoot(sequelizeConfig()),
         UserModule,
         RoleModule,
         AuthModule,

@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 
 import { User } from './user.entity';
@@ -9,6 +9,7 @@ import { AddRoleDto } from './dto/add-role.dto';
 import { Role } from '../role/entity/role.entity';
 import { Basket } from '../basket/entity/basket.entity';
 import { Product } from '../product/product.entity';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UserService {
@@ -18,15 +19,22 @@ export class UserService {
     ) {}
 
     async createUser(userDto: CreateUserDto): Promise<User> {
-        const user: User = await this.userModel.create(userDto);
+        const existingUser: User | null = await this.getUserByEmail(userDto.email);
         const role: Role | null = await this.roleService.getRoleByName(roles.USER);
 
         if (!role) {
-            throw new InternalServerErrorException({
-                cause: new Error(),
-                description: 'User not created, please try again',
-            });
+            throw new InternalServerErrorException('User not created, please try again');
         }
+
+        if (existingUser) {
+            throw new BadRequestException('User already exist');
+        }
+
+        const hashedPassword: string = await bcrypt.hash(userDto.password, 10);
+        const user: User = await this.userModel.create({
+            ...userDto,
+            password: hashedPassword,
+        });
 
         await user.$set(ROLES_KEY, [role.id]);
         user.roles = [role];
