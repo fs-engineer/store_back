@@ -19,6 +19,9 @@ import { CharacteristicModule } from './modules/characteristic/characteristic.mo
 // eslint-disable-next-line max-len
 import { ProductCharacteristicMappingModule } from './modules/product-characteristic-mapping/product-characteristic-mapping.module';
 import { BasketModule } from './modules/basket/basket.module';
+import { PrometheusModule } from '@willsoto/nestjs-prometheus';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { LoggingInterceptor } from './interceptors/logging.interceptor';
 
 const sequelizeConfig = (): SequelizeModuleOptions => {
     const config = {
@@ -45,11 +48,18 @@ const sequelizeConfig = (): SequelizeModuleOptions => {
 };
 
 @Module({
+    providers: [
+        {
+            provide: APP_INTERCEPTOR,
+            useClass: LoggingInterceptor,
+        },
+    ],
     imports: [
         ConfigModule.forRoot({
             envFilePath: process.env.NODE_ENV === 'development' ? '.env.development' : '.env',
         }),
         SequelizeModule.forRoot(sequelizeConfig()),
+        PrometheusModule.register(),
         UserModule,
         RoleModule,
         AuthModule,
