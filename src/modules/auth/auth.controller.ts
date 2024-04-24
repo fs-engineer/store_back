@@ -7,19 +7,19 @@ import { User } from '../user/user.entity';
 @ApiTags('Authorization')
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+    constructor(private authService: AuthService) {}
 
-  @ApiOperation({ summary: 'Login' })
-  @ApiResponse({ status: HttpStatus.OK, type: User })
-  @Post('/login')
-  login(@Body() userDto: CreateUserDto) {
-    return this.authService.login(userDto);
-  }
+    @ApiOperation({ summary: 'Login' })
+    @ApiResponse({ status: HttpStatus.OK, type: User })
+    @Post('/login')
+    login(@Body() userDto: CreateUserDto) {
+        return this.authService.login(userDto);
+    }
 
-  @ApiOperation({ summary: 'User registration' })
-  @ApiResponse({ status: HttpStatus.CREATED, type: User })
-  @Post('/register')
-  register(@Body() userDto: CreateUserDto) {
-    return this.authService.register(userDto);
-  }
+    @ApiOperation({ summary: 'User registration' })
+    @ApiResponse({ status: HttpStatus.CREATED, type: User })
+    @Post('/register')
+    register(@Body() userDto: CreateUserDto) {
+        return this.authService.register(userDto);
+    }
 }
