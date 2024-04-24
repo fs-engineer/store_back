@@ -55,23 +55,18 @@ const prometheusConfig = {
 };
 
 @Module({
-    providers: [
-        {
-            provide: APP_INTERCEPTOR,
-            useClass: LoggingInterceptor,
-        },
-    ],
+    // providers: [
+    //     {
+    //         provide: APP_INTERCEPTOR,
+    //         useClass: LoggingInterceptor,
+    //     },
+    // ],
     imports: [
         ConfigModule.forRoot({
             envFilePath: process.env.NODE_ENV === 'development' ? '.env.development' : '.env',
         }),
         SequelizeModule.forRoot(sequelizeConfig()),
-        PrometheusModule.register({
-            path: '/metrics',
-            defaultMetrics: {
-                enabled: true,
-            },
-        }),
+        PrometheusModule.register(prometheusConfig),
         UserModule,
         RoleModule,
         AuthModule,
