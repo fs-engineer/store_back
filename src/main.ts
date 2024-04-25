@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import * as process from 'node:process';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { WinstonLoggerService } from './services/winstonLoggerServices/winstonLogger.service';
 
 const swaggerConfig = new DocumentBuilder()
     .setTitle('Beauty Store')
@@ -13,7 +14,9 @@ const swaggerConfig = new DocumentBuilder()
 
 async function server(): Promise<void> {
     const PORT: number = Number(process.env.PORT) || 3030;
-    const app: INestApplication<any> = await NestFactory.create(AppModule);
+    const app: INestApplication<any> = await NestFactory.create(AppModule, {
+        logger: new WinstonLoggerService(),
+    });
 
     const document = SwaggerModule.createDocument(app, swaggerConfig);
     SwaggerModule.setup('/api/docs', app, document);
