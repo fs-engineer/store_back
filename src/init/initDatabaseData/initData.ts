@@ -1,16 +1,23 @@
 import { CreateRoleDto } from '../../modules/role/dto/create-role.dto';
+import { roles } from '../../constants';
+import { CreateUserDto } from '../../modules/user/dto/create-user.dto';
 
-export const initRoles: CreateRoleDto[] = [
+export const initRolesData: CreateRoleDto[] = [
     {
-        name: 'ADMIN',
+        name: roles.ADMIN,
         description: 'Administrator',
     },
     {
-        name: 'USER',
+        name: roles.USER,
         description: 'Default user',
     },
     {
-        name: 'GUEST',
+        name: roles.GUEST,
         description: 'Guest user',
     },
 ];
+
+export const initAdminData: CreateUserDto = {
+    email: 'vad.evlanov@gmail.com',
+    password: 'admin123admin',
+};

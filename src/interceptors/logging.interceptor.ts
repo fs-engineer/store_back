@@ -2,7 +2,7 @@ import { Injectable, NestInterceptor, ExecutionContext, CallHandler, Logger } fr
 import { tap } from 'rxjs/operators';
 import { v4 as uuidv4 } from 'uuid';
 import { Observable } from 'rxjs';
-
+// TODO need to removed prometheus logs from global logging
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
     private readonly logger = new Logger(LoggingInterceptor.name);

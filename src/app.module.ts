@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { SequelizeModule, SequelizeModuleOptions } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
 import { Dialect } from 'sequelize';
@@ -22,6 +22,8 @@ import { CharacteristicModule } from './modules/characteristic/characteristic.mo
 import { ProductCharacteristicMappingModule } from './modules/product-characteristic-mapping/product-characteristic-mapping.module';
 import { BasketModule } from './modules/basket/basket.module';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
+import { initializeRoleData } from './init/initDatabaseData/initializeRoleData';
+import { initializeAdminData } from './init/initDatabaseData/initializeAdminData';
 
 const sequelizeConfig = (): SequelizeModuleOptions => {
     const config = {
@@ -83,4 +85,9 @@ const prometheusConfig = {
         BasketModule,
     ],
 })
-export class AppModule {}
+export class AppModule implements OnModuleInit {
+    async onModuleInit() {
+        await initializeRoleData();
+        await initializeAdminData();
+    }
+}
