@@ -6,6 +6,7 @@ import { CreateUserDto } from '../user/dto/create-user.dto';
 import { UserService } from '../user/user.service';
 import { User } from '../user/user.entity';
 import { IToken, ITokenPayload } from '../../interfaces/token.interface';
+import * as process from 'node:process';
 
 @Injectable()
 export class AuthService {
@@ -14,14 +15,19 @@ export class AuthService {
         private jwtService: JwtService,
     ) {}
 
-    private async generateToken(userDto: User): Promise<IToken> {
+    private async generateToken(user: User): Promise<IToken> {
         const payload: ITokenPayload = {
-            id: userDto.id,
-            email: userDto.email,
-            roles: userDto.roles,
+            id: user.id,
+            email: user.email,
+            roles: user.roles,
         };
-
-        return { accessToken: this.jwtService.sign(payload) };
+        return {
+            accessToken: await this.jwtService.signAsync(payload),
+            refreshToken: await this.jwtService.signAsync(payload, {
+                expiresIn: '7d',
+                secret: process.env.JWT_REFRESH_KEY,
+            }),
+        };
     }
 
     private async validateUser(userDto: CreateUserDto): Promise<User> {
@@ -39,18 +45,41 @@ export class AuthService {
         return user;
     }
 
-    async login(userDto: CreateUserDto): Promise<IToken> {
+    async login(userDto: CreateUserDto) {
         const user: User = await this.validateUser(userDto);
-        return this.generateToken(user);
+
+        const tokens = await this.generateToken(user);
+
+        return {
+            user: {
+                id: user.id,
+                email: user.email,
+                roles: user.roles.map((role) => role.name),
+            },
+            ...tokens,
+        };
     }
 
-    async register(userDto: CreateUserDto): Promise<IToken> {
+    async register(userDto: CreateUserDto) {
         const user: User | null = await this.usersService.createUser(userDto);
 
         if (!user) {
             throw new InternalServerErrorException('User not created, please try again');
         }
 
-        return this.generateToken(user);
+        const tokens = await this.generateToken(user);
+
+        return {
+            user: {
+                id: user.id,
+                email: user.email,
+                roles: user.roles.map((role) => role.name),
+            },
+            ...tokens,
+        };
+    }
+
+    async refreshToken(user: User) {
+        return await this.generateToken(user);
     }
 }
