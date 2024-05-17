@@ -8,6 +8,8 @@ import { User } from '../user/user.entity';
 import { IToken, ITokenPayload } from '../../interfaces/token.interface';
 import * as process from 'node:process';
 
+const EXPIRE_TIME = 24 * 60 * 60 * 1000;
+
 @Injectable()
 export class AuthService {
     constructor(
@@ -22,11 +24,14 @@ export class AuthService {
             roles: user.roles,
         };
         return {
-            accessToken: await this.jwtService.signAsync(payload),
+            accessToken: await this.jwtService.signAsync(payload, {
+                expiresIn: '1d',
+            }),
             refreshToken: await this.jwtService.signAsync(payload, {
                 expiresIn: '7d',
                 secret: process.env.JWT_REFRESH_KEY,
             }),
+            expiresIn: new Date().setTime(new Date().getTime() + EXPIRE_TIME),
         };
     }
 
