@@ -60,6 +60,7 @@ export class UserService {
 
         const { rows: users, count } = await this.userModel.findAndCountAll({
             where: whereCondition,
+            attributes: { exclude: ['password'] },
             include: [
                 {
                     model: Role,
