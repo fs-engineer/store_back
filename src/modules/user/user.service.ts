@@ -10,6 +10,8 @@ import { Role } from '../role/entity/role.entity';
 import { Basket } from '../basket/entity/basket.entity';
 import { Product } from '../product/product.entity';
 import * as bcrypt from 'bcryptjs';
+import { UserParamsDto } from './dto/user-params.dto';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class UserService {
@@ -42,8 +44,22 @@ export class UserService {
         return user;
     }
 
-    async getAllUsers(): Promise<User[]> {
-        return await this.userModel.findAll({
+    async getAllUsers({ query = '', page = 1 }: UserParamsDto): Promise<{ users: User[]; count: number }> {
+        const pageSize: number = 10;
+        const offset: number = (page - 1) * pageSize;
+
+        const whereCondition = query
+            ? {
+                  [Op.or]: [
+                      { name: { [Op.like]: `%${query}%` } },
+                      { email: { [Op.like]: `%${query}%` } },
+                      { '$Role.name$': { [Op.like]: `%${query}%` } },
+                  ],
+              }
+            : {};
+
+        const { rows: users, count } = await this.userModel.findAndCountAll({
+            where: whereCondition,
             include: [
                 {
                     model: Role,
@@ -51,7 +67,11 @@ export class UserService {
                     through: { attributes: [] },
                 },
             ],
+            limit: pageSize,
+            offset: offset,
         });
+
+        return { users, count };
     }
 
     async getUserByEmail(email: string): Promise<User | null> {
