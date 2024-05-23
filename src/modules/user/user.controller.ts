@@ -8,7 +8,7 @@ import { roles } from '../../constants';
 import { RolesGuard } from '../../guards/roles.guard';
 import { Role } from '../role/entity/role.entity';
 import { AddRoleDto } from './dto/add-role.dto';
-import { UserParamsDto } from './dto/user-params.dto';
+import { ParamsDto } from '../../common/dto/params.dto';
 
 @ApiTags('Users')
 @Controller('users')
@@ -29,7 +29,7 @@ export class UserController {
     @Roles([roles.ADMIN])
     @UseGuards(RolesGuard)
     @Get()
-    async getAll(@Param() params: UserParamsDto): Promise<{ users: User[]; count: number; totalPages: number }> {
+    async getAll(@Param() params: ParamsDto): Promise<{ users: User[]; count: number; totalPages: number }> {
         const { users, count } = await this.usersService.getAllUsers(params);
         const totalPages: number = Math.ceil(count / 10);
 

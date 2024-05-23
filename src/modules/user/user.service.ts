@@ -1,6 +1,5 @@
 import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-
 import { User } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { RoleService } from '../role/role.service';
@@ -10,8 +9,8 @@ import { Role } from '../role/entity/role.entity';
 import { Basket } from '../basket/entity/basket.entity';
 import { Product } from '../product/product.entity';
 import * as bcrypt from 'bcryptjs';
-import { UserParamsDto } from './dto/user-params.dto';
 import { Op } from 'sequelize';
+import { ParamsDto } from '../../common/dto/params.dto';
 
 @Injectable()
 export class UserService {
@@ -44,7 +43,7 @@ export class UserService {
         return user;
     }
 
-    async getAllUsers({ query = '', page = 1 }: UserParamsDto): Promise<{ users: User[]; count: number }> {
+    async getAllUsers({ query = '', page = 1 }: ParamsDto): Promise<{ users: User[]; count: number }> {
         const pageSize: number = 10;
         const offset: number = (page - 1) * pageSize;
 

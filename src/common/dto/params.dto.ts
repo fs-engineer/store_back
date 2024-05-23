@@ -1,6 +1,6 @@
 import { IsString, IsOptional, IsInt, Min } from 'class-validator';
 
-export class UserParamsDto {
+export class ParamsDto {
     @IsOptional()
     @IsString()
     readonly query?: string;
