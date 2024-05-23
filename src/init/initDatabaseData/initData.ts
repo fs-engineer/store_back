@@ -19,5 +19,5 @@ export const initRolesData: CreateRoleDto[] = [
 
 export const initAdminData: CreateUserDto = {
     email: 'vad.evlanov@gmail.com',
-    password: 'admin123admin',
+    password: 'admin123Admin',
 };

@@ -2,7 +2,7 @@ import * as bcrypt from 'bcryptjs';
 
 import { User } from '../../modules/user/user.entity';
 import { initAdminData } from './initData';
-import { InternalServerErrorException } from '@nestjs/common';
+import { BadRequestException, InternalServerErrorException } from '@nestjs/common';
 import { roles, ROLES_KEY } from '../../constants';
 import { Role } from '../../modules/role/entity/role.entity';
 
@@ -20,10 +20,13 @@ export async function initializeAdminData(): Promise<void> {
     }
 
     const user: User = await User.create({ ...initAdminData, password: hashedPass });
-    const role: Role | null = await this.roleService.getRoleByName(roles.ADMIN);
+    if (!user) {
+        console.log('User not created');
+    }
+    const role: Role | null = await Role.findOne({ where: { name: roles.ADMIN } });
 
     if (!role) {
-        throw new InternalServerErrorException('Role not found');
+        throw new BadRequestException('Role not found');
     }
 
     await user.$set(ROLES_KEY, [role.id]);
