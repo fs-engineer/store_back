@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { BrandService } from './brand.service';
@@ -18,9 +18,18 @@ export class BrandController {
     @ApiResponse({ status: HttpStatus.OK, type: [Brand] })
     @Roles([roles.ADMIN])
     @UseGuards(RolesGuard)
+    @Get('/all')
+    async getAll(): Promise<Brand[] | HttpException> {
+        return await this.brandsService.getAllBrands();
+    }
+
+    @ApiOperation({ summary: 'Get all brand' })
+    @ApiResponse({ status: HttpStatus.OK, type: [Brand] })
+    @Roles([roles.ADMIN])
+    @UseGuards(RolesGuard)
     @Get()
-    async getAll(@Param() params: ParamsDto): Promise<{ brands: Brand[]; count: number; totalPages: number }> {
-        const { brands, count } = await this.brandsService.getAllBrands(params);
+    async getAllByParams(@Param() params: ParamsDto): Promise<{ brands: Brand[]; count: number; totalPages: number }> {
+        const { brands, count } = await this.brandsService.getAllBrandsByParams(params);
         const totalPages: number = Math.ceil(count / 10);
 
         return { brands, count, totalPages };

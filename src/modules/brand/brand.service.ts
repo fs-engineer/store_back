@@ -9,7 +9,16 @@ import { Op } from 'sequelize';
 export class BrandService {
     constructor(@InjectModel(Brand) private brandModel: typeof Brand) {}
 
-    async getAllBrands({ query = '', page = 1 }) {
+    async getAllBrands() {
+        try {
+            return await this.brandModel.findAll();
+        } catch (e) {
+            console.log(e);
+            return new HttpException('Something went wrong', HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    async getAllBrandsByParams({ query = '', page = 1 }) {
         const pageSize: number = 10;
         const offset: number = (page - 1) * pageSize;
         const whereCondition = query
