@@ -45,7 +45,7 @@ export class BrandService {
         } catch (e) {
             console.log(e);
             if (e.name === 'SequelizeUniqueConstraintError') {
-                return new HttpException({ message: 'Brand with this name already exists' }, HttpStatus.BAD_REQUEST);
+                return new HttpException({ message: 'Такий бренд вже існує' }, HttpStatus.BAD_REQUEST);
             }
         }
     }

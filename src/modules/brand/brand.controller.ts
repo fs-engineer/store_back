@@ -23,7 +23,7 @@ export class BrandController {
         return await this.brandsService.getAllBrands();
     }
 
-    @ApiOperation({ summary: 'Get all brand' })
+    @ApiOperation({ summary: 'Get all brand by params' })
     @ApiResponse({ status: HttpStatus.OK, type: [Brand] })
     @Roles([roles.ADMIN])
     @UseGuards(RolesGuard)
