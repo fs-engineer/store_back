@@ -8,4 +8,8 @@ export class QueryDto {
     @IsOptional()
     @IsString()
     readonly page?: string;
+
+    @IsOptional()
+    @IsString()
+    readonly pageSize?: string;
 }

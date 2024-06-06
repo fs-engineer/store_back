@@ -4,6 +4,7 @@ import { Brand } from './brand.entity';
 import { CreateBrandDto } from './dto/create-brand.dto';
 import { Country } from '../country/country.entity';
 import { Op } from 'sequelize';
+import { calcOffset } from '../../helpers/calcOffset';
 
 @Injectable()
 export class BrandService {
@@ -18,9 +19,9 @@ export class BrandService {
         }
     }
 
-    async getAllBrandsByParams({ query = '', page = '1' }) {
-        const pageSize: number = 10;
-        const offset: number = (Number(page) - 1) * pageSize;
+    async getAllBrandsByParams({ query = '', page = '1', pageSize = '10' }) {
+        const pSize = Number(pageSize);
+        const offset = calcOffset(page, pSize);
         const whereCondition = query
             ? {
                   [Op.or]: [{ name: { [Op.like]: `%${query}%` } }],
@@ -32,11 +33,11 @@ export class BrandService {
                 model: Country,
                 attributes: ['name'],
             },
-            limit: pageSize,
+            limit: pSize,
             offset: offset,
         });
 
-        return { brands, count };
+        return { brands, count, pageSize: pSize };
     }
 
     async createBrand(brandDto: CreateBrandDto) {

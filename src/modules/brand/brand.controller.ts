@@ -19,6 +19,7 @@ import { roles } from '../../constants';
 import { RolesGuard } from '../../guards/roles.guard';
 import { Brand } from './brand.entity';
 import { QueryDto } from '../../common/dto/query.dto';
+import { calcTotalPages } from '../../helpers/requests/calcTotalPages';
 
 @ApiTags('Brands')
 @Controller('brands')
@@ -40,8 +41,8 @@ export class BrandController {
     @UseGuards(RolesGuard)
     @Get()
     async getAllByParams(@Query() query: QueryDto): Promise<{ brands: Brand[]; count: number; totalPages: number }> {
-        const { brands, count } = await this.brandsService.getAllBrandsByParams(query);
-        const totalPages: number = Math.ceil(count / 10);
+        const { brands, count, pageSize } = await this.brandsService.getAllBrandsByParams(query);
+        const totalPages = calcTotalPages(count, pageSize);
 
         return { brands, count, totalPages };
     }
