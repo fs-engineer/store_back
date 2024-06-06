@@ -10,7 +10,7 @@ import { Basket } from '../basket/entity/basket.entity';
 import { Product } from '../product/product.entity';
 import * as bcrypt from 'bcryptjs';
 import { Op } from 'sequelize';
-import { ParamsDto } from '../../common/dto/params.dto';
+import { QueryDto } from '../../common/dto/query.dto';
 
 @Injectable()
 export class UserService {
@@ -43,9 +43,9 @@ export class UserService {
         return user;
     }
 
-    async getAllUsers({ query = '', page = 1 }: ParamsDto): Promise<{ users: User[]; count: number }> {
+    async getAllUsers({ query = '', page = '1' }: QueryDto): Promise<{ users: User[]; count: number }> {
         const pageSize: number = 10;
-        const offset: number = (page - 1) * pageSize;
+        const offset: number = (Number(page) - 1) * pageSize;
 
         const whereCondition = query
             ? {

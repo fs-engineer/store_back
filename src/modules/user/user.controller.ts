@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Post, Query, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { User } from './user.entity';
@@ -8,7 +8,7 @@ import { roles } from '../../constants';
 import { RolesGuard } from '../../guards/roles.guard';
 import { Role } from '../role/entity/role.entity';
 import { AddRoleDto } from './dto/add-role.dto';
-import { ParamsDto } from '../../common/dto/params.dto';
+import { QueryDto } from '../../common/dto/query.dto';
 
 @ApiTags('Users')
 @Controller('users')
@@ -29,8 +29,8 @@ export class UserController {
     @Roles([roles.ADMIN])
     @UseGuards(RolesGuard)
     @Get()
-    async getAll(@Param() params: ParamsDto): Promise<{ users: User[]; count: number; totalPages: number }> {
-        const { users, count } = await this.usersService.getAllUsers(params);
+    async getAll(@Query() query: QueryDto): Promise<{ users: User[]; count: number; totalPages: number }> {
+        const { users, count } = await this.usersService.getAllUsers(query);
         const totalPages: number = Math.ceil(count / 10);
 
         return { users, count, totalPages };

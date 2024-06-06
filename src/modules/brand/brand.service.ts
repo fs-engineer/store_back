@@ -18,9 +18,9 @@ export class BrandService {
         }
     }
 
-    async getAllBrandsByParams({ query = '', page = 1 }) {
+    async getAllBrandsByParams({ query = '', page = '1' }) {
         const pageSize: number = 10;
-        const offset: number = (page - 1) * pageSize;
+        const offset: number = (Number(page) - 1) * pageSize;
         const whereCondition = query
             ? {
                   [Op.or]: [{ name: { [Op.like]: `%${query}%` } }],

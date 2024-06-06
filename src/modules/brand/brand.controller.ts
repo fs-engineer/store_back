@@ -1,4 +1,15 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, UseGuards } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    HttpException,
+    HttpStatus,
+    Param,
+    Post,
+    Query,
+    UseGuards,
+} from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { BrandService } from './brand.service';
@@ -7,7 +18,7 @@ import { Roles } from '../../decorators/role-auth.decorator';
 import { roles } from '../../constants';
 import { RolesGuard } from '../../guards/roles.guard';
 import { Brand } from './brand.entity';
-import { ParamsDto } from '../../common/dto/params.dto';
+import { QueryDto } from '../../common/dto/query.dto';
 
 @ApiTags('Brands')
 @Controller('brands')
@@ -28,8 +39,8 @@ export class BrandController {
     @Roles([roles.ADMIN])
     @UseGuards(RolesGuard)
     @Get()
-    async getAllByParams(@Param() params: ParamsDto): Promise<{ brands: Brand[]; count: number; totalPages: number }> {
-        const { brands, count } = await this.brandsService.getAllBrandsByParams(params);
+    async getAllByParams(@Query() query: QueryDto): Promise<{ brands: Brand[]; count: number; totalPages: number }> {
+        const { brands, count } = await this.brandsService.getAllBrandsByParams(query);
         const totalPages: number = Math.ceil(count / 10);
 
         return { brands, count, totalPages };
