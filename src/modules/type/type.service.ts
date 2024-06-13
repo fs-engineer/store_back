@@ -3,16 +3,35 @@ import { InjectModel } from '@nestjs/sequelize';
 
 import { Type } from './entity/type.entity';
 import { CreateTypeDto } from './dto/create-type.dto';
+import { calcOffset } from '../../helpers/calcOffset';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class TypeService {
     constructor(@InjectModel(Type) private productTypeModel: typeof Type) {}
 
-    async createProductType(productTypeDto: CreateTypeDto): Promise<Type> {
-        return await this.productTypeModel.create(productTypeDto);
+    async getAllProductTypesByParams({
+        query = '',
+        page = '1',
+        pageSize = '10',
+    }): Promise<{ rows: Type[]; count: number; pageSize: number }> {
+        const pSize = Number(pageSize);
+        const offset = calcOffset(page, pSize);
+        const whereCondition = query
+            ? {
+                  [Op.or]: [{ name: { [Op.like]: `%${query}%` } }],
+              }
+            : {};
+        const { rows, count } = await this.productTypeModel.findAndCountAll({
+            where: whereCondition,
+            limit: pSize,
+            offset: offset,
+        });
+
+        return { rows, count, pageSize: pSize };
     }
 
-    async getAllProductTypes(): Promise<Type[]> {
-        return await this.productTypeModel.findAll();
+    async createProductType(productTypeDto: CreateTypeDto): Promise<Type> {
+        return await this.productTypeModel.create(productTypeDto);
     }
 }
