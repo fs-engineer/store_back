@@ -40,11 +40,11 @@ export class BrandController {
     @Roles([roles.ADMIN])
     @UseGuards(RolesGuard)
     @Get()
-    async getAllByParams(@Query() query: QueryDto): Promise<{ brands: Brand[]; count: number; totalPages: number }> {
-        const { brands, count, pageSize } = await this.brandsService.getAllBrandsByParams(query);
+    async getAllByParams(@Query() query: QueryDto): Promise<{ rows: Brand[]; count: number; totalPages: number }> {
+        const { rows, count, pageSize } = await this.brandsService.getAllBrandsByParams(query);
         const totalPages = calcTotalPages(count, pageSize);
 
-        return { brands, count, totalPages };
+        return { rows, count, totalPages };
     }
 
     @ApiOperation({ summary: 'Create brand' })

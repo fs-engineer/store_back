@@ -27,7 +27,7 @@ export class BrandService {
                   [Op.or]: [{ name: { [Op.like]: `%${query}%` } }],
               }
             : {};
-        const { rows: brands, count } = await this.brandModel.findAndCountAll({
+        const { rows, count } = await this.brandModel.findAndCountAll({
             where: whereCondition,
             include: {
                 model: Country,
@@ -37,7 +37,7 @@ export class BrandService {
             offset: offset,
         });
 
-        return { brands, count, pageSize: pSize };
+        return { rows, count, pageSize: pSize };
     }
 
     async createBrand(brandDto: CreateBrandDto) {
