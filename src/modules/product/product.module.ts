@@ -5,8 +5,8 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { Product } from './product.entity';
 
 @Module({
-  controllers: [ProductController],
-  providers: [ProductService],
-  imports: [SequelizeModule.forFeature([Product])],
+    controllers: [ProductController],
+    providers: [ProductService],
+    imports: [SequelizeModule.forFeature([Product])],
 })
 export class ProductModule {}

@@ -27,5 +27,5 @@ export class ProductCharacteristicMapping extends Model<
 
     @ForeignKey(() => Characteristic)
     @Column({ type: DataType.INTEGER })
-    productCharacteristicId: number;
+    characteristicId: number;
 }
