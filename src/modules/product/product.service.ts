@@ -9,6 +9,8 @@ import { Type } from '../type/entity/type.entity';
 import { CHARACTERISTICS_KEY, HAIR_TYPES_KEY, TYPES_KEY } from '../../constants';
 import { HairType } from '../hair-type/entity/hair-type.entity';
 import { Characteristic } from '../characteristic/entity/characteristic.entity';
+import { calcOffset } from '../../helpers/calcOffset';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class ProductService {
@@ -56,5 +58,27 @@ export class ProductService {
                 },
             ],
         });
+    }
+
+    async getAllProductsByParams({
+        query = '',
+        page = '1',
+        pageSize = '10',
+    }): Promise<{ rows: Product[]; count: number; pageSize: number }> {
+        const pSize = Number(pageSize);
+        const offset = calcOffset(page, pSize);
+        const whereCondition = query
+            ? {
+                  [Op.or]: [{ name: { [Op.like]: `%${query}%` } }],
+              }
+            : {};
+
+        const { rows, count } = await this.productModel.findAndCountAll({
+            where: whereCondition,
+            limit: pSize,
+            offset: offset,
+        });
+
+        return { rows, count, pageSize: pSize };
     }
 }
