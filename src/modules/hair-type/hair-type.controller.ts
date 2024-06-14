@@ -9,7 +9,6 @@ import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { QueryDto } from '../../common/dto/query.dto';
 import { calcTotalPages } from '../../helpers/requests/calcTotalPages';
 
-// TODO need to add swagger
 @Controller('hair-types')
 export class HairTypeController {
     constructor(private readonly hairTypeService: HairTypeService) {}
@@ -31,7 +30,7 @@ export class HairTypeController {
     async getAllByParams(@Query() query: QueryDto): Promise<{ rows: HairType[]; count: number; totalPages: number }> {
         const { rows, count, pageSize } = await this.hairTypeService.getAllHairTypesByParams(query);
         const totalPages = calcTotalPages(count, pageSize);
-        console.log(rows);
+
         return { rows, count, totalPages };
     }
 
