@@ -24,7 +24,7 @@ export class CreateProductDto {
         description: 'Product description',
     })
     @IsString()
-    readonly wayToUse?: string;
+    readonly directions: string;
 
     @ApiProperty({
         example: '[1, 2, 3]',

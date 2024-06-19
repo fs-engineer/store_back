@@ -18,7 +18,7 @@ export class HairTypeController {
     @Roles([roles.ADMIN])
     @UseGuards(RolesGuard)
     @Get('/all')
-    getAll(): Promise<HairType[]> {
+    getAll(): Promise<{ rows: HairType[] }> {
         return this.hairTypeService.getAllHairTypes();
     }
 

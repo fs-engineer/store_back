@@ -9,8 +9,9 @@ import { Op } from 'sequelize';
 export class HairTypeService {
     constructor(@InjectModel(HairType) private hairTypeModel: typeof HairType) {}
 
-    async getAllHairTypes(): Promise<HairType[]> {
-        return await this.hairTypeModel.findAll();
+    async getAllHairTypes(): Promise<{ rows: HairType[] }> {
+        const data = await this.hairTypeModel.findAll();
+        return { rows: data };
     }
 
     async getAllHairTypesByParams({ query = '', page = '1', pageSize = '10' }) {

@@ -53,16 +53,6 @@ export class Product extends Model<Product, IProductCreationAttributes> {
     readonly price: number;
 
     @ApiProperty({
-        example: 'true',
-        description: 'Is product added to the favorites?',
-    })
-    @Column({
-        type: DataType.BOOLEAN,
-        defaultValue: false,
-    })
-    readonly favorite: boolean;
-
-    @ApiProperty({
         example:
             'cream, yellowish component of milk, rich in fat globules, that rises to the surface naturally if milk is allowed to stand',
         description: 'Product description',
@@ -70,7 +60,7 @@ export class Product extends Model<Product, IProductCreationAttributes> {
     @Column({
         type: DataType.STRING,
     })
-    readonly wayToUse: string;
+    readonly directions: string;
 
     @Column({
         type: DataType.INTEGER,

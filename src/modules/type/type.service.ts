@@ -10,6 +10,11 @@ import { Op } from 'sequelize';
 export class TypeService {
     constructor(@InjectModel(Type) private productTypeModel: typeof Type) {}
 
+    async getAllProductTypes(): Promise<{ rows: Type[] }> {
+        const data = await this.productTypeModel.findAll();
+        return { rows: data };
+    }
+
     async getAllProductTypesByParams({
         query = '',
         page = '1',

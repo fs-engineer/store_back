@@ -13,7 +13,8 @@ export class CharacteristicService {
     ) {}
 
     async findAll(): Promise<Characteristic[]> {
-        return await this.characteristicModel.findAll();
+        const data = await this.characteristicModel.findAll();
+        return data;
     }
 
     async findAllByParams({ query = '', page = '1', pageSize = '10' }) {

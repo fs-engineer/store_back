@@ -9,11 +9,19 @@ import { RolesGuard } from '../../guards/roles.guard';
 import { QueryDto } from '../../common/dto/query.dto';
 import { calcTotalPages } from '../../helpers/requests/calcTotalPages';
 
-// TODO need to add role guard and swagger
 @ApiTags('ProductTypes')
 @Controller('product-types')
 export class TypeController {
     constructor(private productTypeService: TypeService) {}
+
+    @ApiOperation({ summary: 'Get all product types' })
+    @ApiResponse({ status: HttpStatus.OK, type: [Type] })
+    @Roles([roles.ADMIN])
+    @UseGuards(RolesGuard)
+    @Get('/all')
+    async getAll(): Promise<{ rows: Type[] }> {
+        return await this.productTypeService.getAllProductTypes();
+    }
 
     @ApiOperation({ summary: 'Get all product types by params' })
     @ApiResponse({ status: HttpStatus.OK, type: [Type] })
