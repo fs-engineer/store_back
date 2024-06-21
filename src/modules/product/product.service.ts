@@ -77,6 +77,28 @@ export class ProductService {
             where: whereCondition,
             limit: pSize,
             offset: offset,
+            distinct: true,
+            include: [
+                {
+                    model: Brand,
+                    include: [Country],
+                },
+                {
+                    model: Type,
+                    attributes: ['id', 'name'],
+                    through: { attributes: [] },
+                },
+                {
+                    model: HairType,
+                    attributes: ['id', 'name'],
+                    through: { attributes: [] },
+                },
+                {
+                    model: Characteristic,
+                    attributes: ['id', 'value'],
+                    through: { attributes: [] },
+                },
+            ],
         });
 
         return { rows, count, pageSize: pSize };
