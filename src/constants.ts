@@ -44,4 +44,5 @@ export const table = {
     CHARACTERISTICS: 'characteristics',
     PRODUCT_CHARACTERISTICS_MAPPING: 'product_characteristics_mapping',
     BASKETS: 'baskets',
+    PRODUCT_IMAGES: 'product_images',
 };

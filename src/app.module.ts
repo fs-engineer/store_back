@@ -24,6 +24,9 @@ import { BasketModule } from './modules/basket/basket.module';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
 import { initializeRoleData } from './init/initDatabaseData/initializeRoleData';
 import { initializeAdminData } from './init/initDatabaseData/initializeAdminData';
+import { UploadModule } from './modules/upload/upload.module';
+import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
+import { ProductImageModule } from './modules/product-image/product-image.module';
 
 const sequelizeConfig = (): SequelizeModuleOptions => {
     const config = {
@@ -66,6 +69,7 @@ const prometheusConfig = {
     imports: [
         ConfigModule.forRoot({
             envFilePath: process.env.NODE_ENV === 'development' ? '.env.development' : '.env',
+            isGlobal: true,
         }),
         SequelizeModule.forRoot(sequelizeConfig()),
         PrometheusModule.register(prometheusConfig),
@@ -83,6 +87,9 @@ const prometheusConfig = {
         CharacteristicModule,
         ProductCharacteristicMappingModule,
         BasketModule,
+        UploadModule,
+        CloudinaryModule,
+        ProductImageModule,
     ],
 })
 export class AppModule implements OnModuleInit {

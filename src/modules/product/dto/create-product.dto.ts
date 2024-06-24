@@ -1,4 +1,4 @@
-import { IsArray, IsInt, IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsBoolean, IsInt, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateProductDto {
@@ -17,6 +17,14 @@ export class CreateProductDto {
     @IsString()
     @IsNotEmpty()
     readonly description: string;
+
+    @ApiProperty({ example: '123', description: 'Brand id' })
+    @IsInt()
+    readonly brandId: number;
+
+    @ApiProperty({ example: 'true or false', description: 'Is it recommended product' })
+    @IsBoolean()
+    readonly recommended: boolean;
 
     @ApiProperty({
         example:
@@ -46,4 +54,6 @@ export class CreateProductDto {
     })
     @IsArray()
     readonly characteristics: number[];
+
+    readonly files: [];
 }

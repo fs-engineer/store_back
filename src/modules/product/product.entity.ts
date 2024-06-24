@@ -1,4 +1,4 @@
-import { BelongsTo, BelongsToMany, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, BelongsToMany, Column, DataType, ForeignKey, HasMany, Model, Table } from 'sequelize-typescript';
 import { table } from '../../constants';
 import { ApiProperty } from '@nestjs/swagger';
 import { Brand } from '../brand/brand.entity';
@@ -7,14 +7,18 @@ import { Type } from '../type/entity/type.entity';
 import { HairType } from '../hair-type/entity/hair-type.entity';
 import { ProductHairTypeMapping } from '../product-hair-type-mapping/entity/product-hair-type-mapping.entity';
 import { Characteristic } from '../characteristic/entity/characteristic.entity';
+// eslint-disable-next-line max-len
 import { ProductCharacteristicMapping } from '../product-characteristic-mapping/entity/product-characteristic-mapping.entity';
 import { Basket } from '../basket/entity/basket.entity';
+import { ProductImage } from '../product-image/product-image.entity';
 
 interface IProductCreationAttributes {
     name: string;
     price: number;
     description: string;
-    wayToUse?: string;
+    directions: string;
+    recommended: boolean;
+    brandId: number;
 }
 
 @Table({ tableName: table.PRODUCTS })
@@ -92,4 +96,7 @@ export class Product extends Model<Product, IProductCreationAttributes> {
 
     @BelongsToMany(() => Product, () => Basket)
     products: Product[];
+
+    @HasMany(() => ProductImage)
+    images: ProductImage[];
 }

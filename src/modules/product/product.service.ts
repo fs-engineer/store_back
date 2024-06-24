@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 
 import { CreateProductDto } from './dto/create-product.dto';
@@ -11,27 +11,36 @@ import { HairType } from '../hair-type/entity/hair-type.entity';
 import { Characteristic } from '../characteristic/entity/characteristic.entity';
 import { calcOffset } from '../../helpers/calcOffset';
 import { Op } from 'sequelize';
+import { ProductImage } from '../product-image/product-image.entity';
 
 @Injectable()
 export class ProductService {
     constructor(@InjectModel(Product) private productModel: typeof Product) {}
 
     async createProduct(createProductDto: CreateProductDto) {
-        const product: Product = await this.productModel.create(createProductDto);
+        try {
+            const product: Product = await this.productModel.create(createProductDto);
 
-        if (createProductDto.types && createProductDto.types.length > 0) {
-            await product.$add(TYPES_KEY, createProductDto.types);
+            if (createProductDto.types && createProductDto.types.length > 0) {
+                await product.$add(TYPES_KEY, createProductDto.types);
+            }
+
+            if (createProductDto.hairTypes && createProductDto.hairTypes.length > 0) {
+                await product.$add(HAIR_TYPES_KEY, createProductDto.hairTypes);
+            }
+
+            if (createProductDto.characteristics && createProductDto.characteristics.length > 0) {
+                await product.$add(CHARACTERISTICS_KEY, createProductDto.characteristics);
+            }
+
+            return product;
+        } catch (e) {
+            if (e.errors?.[0]?.message === 'name must be unique') {
+                return new BadRequestException('Name must be unique');
+            } else {
+                return new HttpException('Something went wrong', HttpStatus.BAD_REQUEST);
+            }
         }
-
-        if (createProductDto.hairTypes && createProductDto.hairTypes.length > 0) {
-            await product.$add(HAIR_TYPES_KEY, createProductDto.hairTypes);
-        }
-
-        if (createProductDto.characteristics && createProductDto.characteristics.length > 0) {
-            await product.$add(CHARACTERISTICS_KEY, createProductDto.characteristics);
-        }
-
-        return product;
     }
 
     async getAllProducts(): Promise<Product[]> {
@@ -97,6 +106,10 @@ export class ProductService {
                     model: Characteristic,
                     attributes: ['id', 'value'],
                     through: { attributes: [] },
+                },
+                {
+                    model: ProductImage,
+                    attributes: ['id', 'secureUrl'],
                 },
             ],
         });
