@@ -55,5 +55,12 @@ export class CreateProductDto {
     @IsArray()
     readonly characteristics: number[];
 
+    @ApiProperty({
+        example: '95',
+        description: 'The volume of the product',
+    })
+    @IsInt()
+    readonly volume: number;
+
     readonly files: [];
 }
