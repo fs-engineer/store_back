@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
@@ -34,12 +34,11 @@ export class ProductController {
 
     @ApiOperation({ summary: 'Get all products by params' })
     @ApiResponse({ status: HttpStatus.OK, type: [Product] })
-    @Roles([roles.ADMIN])
+    @Roles([roles.ADMIN, roles.USER, roles.GUEST])
     @UseGuards(RolesGuard)
     @Get()
     async getAllByParams(@Query() query: QueryDto): Promise<{ rows: Product[]; count: number; totalPages: number }> {
         const { rows, count, pageSize } = await this.productsService.getAllProductsByParams(query);
-
         const totalPages = calcTotalPages(count, pageSize);
 
         return { rows, count, totalPages };
@@ -47,12 +46,10 @@ export class ProductController {
 
     @ApiOperation({ summary: 'Get product by id' })
     @ApiResponse({ status: HttpStatus.OK, type: [Product] })
-    @Roles([roles.ADMIN])
+    @Roles([roles.ADMIN, roles.USER, roles.GUEST])
     @UseGuards(RolesGuard)
     @Get('/:id')
-    async getById(@Query() query: { id: number }) {
-        const { id } = query;
-
-        return await this.productsService.getProductById(id);
+    async getById(@Param('id') id: number) {
+        return await this.productsService.getProductById(Number(id));
     }
 }
