@@ -1,4 +1,4 @@
-import { BadRequestException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 
 import { CreateProductDto } from './dto/create-product.dto';
@@ -115,5 +115,13 @@ export class ProductService {
         });
 
         return { rows, count, pageSize: pSize };
+    }
+
+    async getProductById(id: number) {
+        try {
+            return await this.productModel.findByPk(id);
+        } catch (e) {
+            return new NotFoundException('Product not found');
+        }
     }
 }

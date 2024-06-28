@@ -44,4 +44,15 @@ export class ProductController {
 
         return { rows, count, totalPages };
     }
+
+    @ApiOperation({ summary: 'Get product by id' })
+    @ApiResponse({ status: HttpStatus.OK, type: [Product] })
+    @Roles([roles.ADMIN])
+    @UseGuards(RolesGuard)
+    @Get('/:id')
+    async getById(@Query() query: { id: number }) {
+        const { id } = query;
+
+        return await this.productsService.getProductById(id);
+    }
 }
