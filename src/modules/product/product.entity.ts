@@ -78,10 +78,14 @@ export class Product extends Model<Product, IProductCreationAttributes> {
     })
     readonly recommended: boolean;
 
-    @Column({
-        type: DataType.INTEGER,
-    })
+    @Column({ type: DataType.INTEGER })
     readonly volume: number;
+
+    @Column({ type: DataType.INTEGER })
+    readonly article: number;
+
+    @Column({ type: DataType.STRING })
+    readonly composition: string;
 
     @ForeignKey(() => Brand)
     @Column

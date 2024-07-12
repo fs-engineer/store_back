@@ -62,5 +62,9 @@ export class CreateProductDto {
     @IsInt()
     readonly volume: number;
 
-    readonly files: [];
+    @IsInt()
+    readonly article: number;
+
+    @IsString()
+    readonly composition: string;
 }
