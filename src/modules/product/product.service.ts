@@ -119,7 +119,33 @@ export class ProductService {
 
     async getProductById(id: number) {
         try {
-            return await this.productModel.findByPk(id);
+            return await this.productModel.findByPk(id, {
+                include: [
+                    {
+                        model: Brand,
+                        include: [Country],
+                    },
+                    {
+                        model: Type,
+                        attributes: ['id', 'name'],
+                        through: { attributes: [] },
+                    },
+                    {
+                        model: HairType,
+                        attributes: ['id', 'name'],
+                        through: { attributes: [] },
+                    },
+                    {
+                        model: Characteristic,
+                        attributes: ['id', 'value'],
+                        through: { attributes: [] },
+                    },
+                    {
+                        model: ProductImage,
+                        attributes: ['id', 'secureUrl'],
+                    },
+                ],
+            });
         } catch (e) {
             return new NotFoundException('Product not found');
         }
