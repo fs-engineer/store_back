@@ -81,8 +81,8 @@ export class Product extends Model<Product, IProductCreationAttributes> {
     @Column({ type: DataType.INTEGER })
     readonly volume: number;
 
-    @Column({ type: DataType.INTEGER })
-    readonly article: number;
+    @Column({ type: DataType.STRING })
+    readonly article: string;
 
     @Column({ type: DataType.STRING })
     readonly composition: string;

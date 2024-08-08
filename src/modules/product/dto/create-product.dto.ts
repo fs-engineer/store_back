@@ -63,7 +63,7 @@ export class CreateProductDto {
     readonly volume: number;
 
     @IsInt()
-    readonly article: number;
+    readonly article: string;
 
     @IsString()
     readonly composition: string;
